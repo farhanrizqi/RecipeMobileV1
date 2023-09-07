@@ -3,6 +3,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import RegisScreen from '../screens/Auth/RegisScreen';
+import MyRecipeScreen from '../screens/profile/MyRecipeScreen';
+import SaveAndLikeScreen from '../screens/profile/SaveAndLikeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AddScreen from '../screens/AddScreen';
 import MessageScreen from '../screens/MessageScreen';
@@ -108,6 +110,16 @@ const Router = () => {
       <Stack.Screen
         name="RegisScreen"
         component={RegisScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="MyRecipeScreen"
+        component={MyRecipeScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SaveAndLikeScreen"
+        component={SaveAndLikeScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

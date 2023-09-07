@@ -5,8 +5,6 @@ import {useNavigation} from '@react-navigation/native';
 import {Input, Text, Icon} from '@rneui/themed';
 import discover2Image from '../../assets/img/discover2.png';
 
-const screenWidth = Dimensions.get('window').width;
-
 const Login = () => {
   const navigation = useNavigation();
 
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
 
   container: {
     alignItems: 'center',
-    height: 200,
+    height: 100,
   },
 
   inputEmail: {

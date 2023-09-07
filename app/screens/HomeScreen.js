@@ -14,6 +14,7 @@ import SpaghettiImage from '../assets/img/Spaghetti.png';
 import soupImage from '../assets/img/soup.png';
 import utensilsImage from '../assets/img/utensils.png';
 import fishImage from '../assets/img/fish.png';
+// import {SearchBar} from '@rneui/themed';
 
 function HomeScreen({navigation}) {
   const [searchText, setSearchText] = useState('');
@@ -27,12 +28,24 @@ function HomeScreen({navigation}) {
   };
 
   return (
-    <View style={styles.primaryContainer}>
+    <ScrollView style={styles.primaryContainer}>
       <Input
         inputContainerStyle={styles.search}
         placeholder="Search.."
         leftIcon={<Icon type="feather" name="search" size={16} color="black" />}
       />
+
+      {/* <SearchBar
+        inputContainerStyle={styles.search}
+        placeholder="Type Here..."
+        // onChangeText={handleSearch}
+        // value={searchText}
+        platform="android"
+        onClearText={() => console.log(onClearText())}
+        cancelButtonTitle="Cancel"
+        onCancel={() => console.log(onCancel())}
+      /> */}
+
       <View>
         <Text style={{fontSize: 20}}>Popular Recipe</Text>
         <Text style={{fontWeight: 'bold', fontSize: 15}}>Popular Check</Text>
@@ -72,7 +85,7 @@ function HomeScreen({navigation}) {
 
       {/* New Recipe */}
       <View style={styles.newRecipeTitle}>
-        <Text style={{fontSize: 20, marginTop: 30}}>New Recipe</Text>
+        <Text style={{fontSize: 20, marginTop: 20}}>New Recipe</Text>
         <TouchableOpacity onPress={handleMoreInfoPress}>
           <Text style={styles.moreInfo}>More info</Text>
         </TouchableOpacity>
@@ -121,7 +134,7 @@ function HomeScreen({navigation}) {
                 style={{
                   backgroundColor: 'white',
                   fontWeight: 'bold',
-                  paddingLeft: 11,
+                  paddingLeft: 15,
                   fontSize: 12,
                   paddingBottom: 5,
                 }}>
@@ -134,8 +147,9 @@ function HomeScreen({navigation}) {
               source={SpaghettiImage}
               resizeMode="cover"
               style={{
-                width: 200,
-                height: 160,
+                width: 210,
+                height: 161,
+                marginRight: 10,
                 justifyContent: 'flex-end',
               }}>
               <Text style={styles.textPopular}>Spaghetti</Text>
@@ -143,38 +157,33 @@ function HomeScreen({navigation}) {
                 style={{
                   backgroundColor: 'white',
                   fontWeight: 'bold',
-                  paddingLeft: 11,
+                  paddingLeft: 17,
                   fontSize: 12,
                   paddingBottom: 5,
                 }}>
-                Carbonara sauce with grilled...
+                Beef steak with nopales, tartare ...
               </Text>
             </ImageBackground>
           </View>
         </ScrollView>
       </SafeAreaView>
-
-      {/* <Tile
-        imageSrc={BeefImage}
-        titleStyle={{fontSize: 15}}
-        activeOpacity={1}
-        width={410}
-      />
-      <Text style={styles.subHeader}>Featured Tile with Icon</Text> */}
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   primaryContainer: {
-    marginLeft: 25,
-    marginRight: 25,
+    paddingLeft: 25,
+    paddingRight: 25,
+    height: 100,
+    backgroundColor: '#f5f5f5',
   },
   container: {
     marginTop: 25,
+    marginBottom: 25,
   },
   search: {
     paddingHorizontal: 20,
-    marginTop: 40,
+    marginTop: 30,
     borderWidth: 1,
     backgroundColor: '#EFEFEF',
     borderColor: '#EFEFEF',
@@ -187,14 +196,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'flex-end',
     padding: 15,
-  },
-
-  imagePopular: {
-    width: 200,
-    height: 160,
-    marginRight: 10,
-    justifyContent: 'flex-end',
-    // padding: 15,
   },
 
   carousel: {
@@ -213,9 +214,9 @@ const styles = StyleSheet.create({
   textPopular: {
     color: 'black',
     fontSize: 25,
-    paddingLeft: 10,
-    paddingTop: 5,
-    lineHeight: 25,
+    paddingLeft: 15,
+    // paddingTop: 5,
+    // lineHeight: 25,
     fontWeight: 'bold',
     textAlign: 'left',
     backgroundColor: 'white',
@@ -241,21 +242,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textDecorationLine: 'none',
     color: '#EFC81A',
-    marginTop: 10,
+    marginTop: 20,
   },
   item: {
-    width: 85,
-    height: 85,
+    width: 50,
+    height: 50,
     backgroundColor: 'lightgray',
-    marginHorizontal: 50,
-    borderRadius: 22,
+    borderRadius: 15,
   },
 
   itemContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 90,
-    height: 90,
+    width: 70,
+    height: 70,
     marginTop: 4,
   },
 
@@ -271,8 +271,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     color: 'white',
     textAlign: 'center',
-    paddingVertical: 5,
-    marginBottom: 10,
+  },
+  imagePopular: {
+    width: 210,
+    height: 161,
+    justifyContent: 'flex-end',
+  },
+  carouselPopular: {
+    width: 200,
+    height: 160,
+    backgroundColor: 'lightgray',
+    alignItems: 'center',
+    marginRight: 20,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   // ! popular end
 });

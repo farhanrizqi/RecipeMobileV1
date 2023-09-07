@@ -7,7 +7,7 @@ import discover2Image from '../../assets/img/discover2.png';
 
 const screenWidth = Dimensions.get('window').width;
 
-const Regis = () => {
+const RegisScreen = () => {
   const navigation = useNavigation();
 
   const handleLoginPress = () => {
@@ -16,14 +16,10 @@ const Regis = () => {
 
   return (
     <View>
-      <View style={styles.container}>
-        {/* <Image source={detail2Image} style={styles.BgSplash}/> */}
-        {/* <Image source={discover2Image} style={styles.overlay} /> */}
-        <ImageBackground source={discover2Image} style={styles.overlay} />
-      </View>
+      <View style={styles.overlay}></View>
       <View style={styles.main}>
         <Text style={styles.welcome}>Welcome !</Text>
-        <Text style={styles.login}>Log in to your exiting account.</Text>
+        <Text style={styles.login}>Register to Recipe App.</Text>
       </View>
       <View>
         <Input
@@ -54,30 +50,40 @@ const Regis = () => {
       <View style={styles.word}>
         <Text>
           <Text style={styles.dont}>Don’t have an account? </Text>
-          <Text style={styles.signup} onPress={handleSignup}>
-            Sign Up
-          </Text>
         </Text>
       </View>
     </View>
   );
 };
 
-export default Regis;
+export default RegisScreen;
 
 const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
   },
+  overlay: {
+    width: '100%',
+    height: '50%',
+    backgroundColor: '#EEC302',
+  },
 
   container: {
     alignItems: 'center',
     height: 200,
+    borderBottomLeftRadius: 10,
   },
 
   inputEmail: {
     paddingHorizontal: 20,
-    marginTop: 40,
+    borderWidth: 1,
+    backgroundColor: '#EFEFEF',
+    borderColor: '#EFEFEF',
+    borderRadius: 10,
+  },
+  inputName: {
+    paddingHorizontal: 20,
+    marginTop: 20,
     borderWidth: 1,
     backgroundColor: '#EFEFEF',
     borderColor: '#EFEFEF',
@@ -86,7 +92,6 @@ const styles = StyleSheet.create({
 
   inputPass: {
     paddingHorizontal: 20,
-    marginTop: 10,
     marginBottom: 30,
     borderWidth: 1,
     backgroundColor: '#EFEFEF',
@@ -95,7 +100,8 @@ const styles = StyleSheet.create({
   },
 
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
+    width: '100%',
     backgroundColor: 'rgba(239, 200, 26, 0.5)',
     borderBottomLeftRadius: 22,
     borderBottomRightRadius: 22,
