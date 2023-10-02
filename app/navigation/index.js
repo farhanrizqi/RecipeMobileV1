@@ -103,7 +103,7 @@ const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Initial">
-        {!login.data?.token ? (
+        {!login.data?.data?.token ? (
           <>
             <Stack.Screen
               name="Initial"

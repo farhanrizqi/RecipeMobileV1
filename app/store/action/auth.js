@@ -1,9 +1,11 @@
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 import {API_URL} from '@env';
 
 export const postLogin = data => async dispatch => {
+  const navigation = useNavigation();
   try {
     dispatch({type: 'LOGIN_REQUEST'});
     const result = await axios.post(
@@ -11,18 +13,32 @@ export const postLogin = data => async dispatch => {
       data,
     );
     console.log('result data ', result.data);
-    await AsyncStorage.setItem('token', result.data.token);
+    console.log('result token ', result.data.data.token);
+
+    if (result.data && result.data.data.token) {
+      await AsyncStorage.setItem('token', result.data.data.token);
+    } else {
+      console.log(
+        'Token tidak ditemukan dalam respons atau nilainya null/undefined.',
+      );
+    }
+
     result.data && dispatch({type: 'LOGIN_SUCCESS', payload: result.data});
     result.data && console.log('success');
   } catch (err) {
-    console.log('err');
-    console.log(data);
-    Toast.show({
-      type: 'error',
-      text1: err.response.data.message,
-    });
-    console.log(err.response.data.message);
-    dispatch({type: 'LOGIN_ERROR', payload: err.response.data.message});
+    console.log('err', err);
+    console.log('Data: ', data);
+    if (err.response && err.response.data && err.response.data.message) {
+      Toast.show({
+        type: 'error',
+        text1: err.response.data.message,
+      });
+      console.log('Error : ', err.response.data.message);
+      dispatch({type: 'LOGIN_ERROR', payload: err.response.data.message});
+    } else {
+      // Handle kesalahan jika tidak ada pesan kesalahan yang diterima
+      console.log('Terjadi kesalahan tanpa pesan.');
+    }
   }
 };
 

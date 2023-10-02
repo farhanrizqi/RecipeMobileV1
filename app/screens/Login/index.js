@@ -20,7 +20,7 @@ const Login = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputData, setInputData] = useState({
     email: '',
-    password: '',
+    pass: '',
   });
 
   useEffect(() => {
@@ -39,7 +39,8 @@ const Login = () => {
 
   const handleLoginPress = () => {
     console.log('inputData in handleLoginPress:', inputData);
-    dispatch(postLogin(inputData, navigation));
+    dispatch(postLogin(inputData));
+    console.log('input data :', inputData);
   };
 
   const handleSignup = () => {
@@ -78,8 +79,8 @@ const Login = () => {
         <Input
           inputContainerStyle={styles.inputPass}
           placeholder="Password "
-          value={inputData.password}
-          onChangeText={text => setInputData({...inputData, password: text})}
+          value={inputData.pass}
+          onChangeText={text => setInputData({...inputData, pass: text})}
           leftIcon={<Icon type="feather" name="lock" size={16} color="black" />}
           secureTextEntry={true}
         />
