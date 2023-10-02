@@ -3,7 +3,7 @@ import React from 'react';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-const LikedRecipe = () => {
+const Like = () => {
   const navigation = useNavigation();
   return (
     <View
@@ -47,6 +47,6 @@ const LikedRecipe = () => {
   );
 };
 
-export default LikedRecipe;
+export default Like;
 
 const styles = StyleSheet.create({});

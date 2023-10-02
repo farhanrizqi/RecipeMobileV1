@@ -6,7 +6,7 @@ import ActionButton from '../../components/ActionButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 
-const StartScreens = () => {
+const Initial = () => {
   const navigation = useNavigation();
 
   const handleStart = () => {
@@ -48,6 +48,6 @@ const StartScreens = () => {
   );
 };
 
-export default StartScreens;
+export default Initial;
 
 const styles = StyleSheet.create({});

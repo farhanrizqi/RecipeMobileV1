@@ -16,7 +16,7 @@ import utensilsImage from '../../assets/img/utensils.png';
 import fishImage from '../../assets/img/fish.png';
 // import {SearchBar} from '@rneui/themed';
 
-function HomeScreen({navigation}) {
+function Home({navigation}) {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
@@ -289,4 +289,4 @@ const styles = StyleSheet.create({
   // ! popular end
 });
 
-export default HomeScreen;
+export default Home;

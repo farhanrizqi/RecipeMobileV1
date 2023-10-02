@@ -69,7 +69,7 @@ const Items = ({id, img, title, category, navigation, author, photos}) => {
   );
 };
 
-const SearchMenu = () => {
+const Search = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [searchMenu, setSearchMenu] = useState('');
@@ -385,7 +385,7 @@ const SearchMenu = () => {
   );
 };
 
-export default SearchMenu;
+export default Search;
 
 const styles = StyleSheet.create({
   pagination: {

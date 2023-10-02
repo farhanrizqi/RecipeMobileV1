@@ -3,7 +3,7 @@ import React from 'react';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-const SavedRecipe = () => {
+const Save = () => {
   const navigation = useNavigation();
   return (
     <View
@@ -47,6 +47,6 @@ const SavedRecipe = () => {
   );
 };
 
-export default SavedRecipe;
+export default Save;
 
 const styles = StyleSheet.create({});

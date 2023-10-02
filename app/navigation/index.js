@@ -19,16 +19,16 @@ import {
   Like,
   Initial,
 } from '../screens';
-// import {
-//   IconAddActive,
-//   IconAddNon,
-//   IconHomeActive,
-//   IconHomeNon,
-//   IconMessageActive,
-//   IconMessageNon,
-//   IconUserActive,
-//   IconUserNon,
-// } from '../assets';
+import {
+  TabHome,
+  TabMessages,
+  TabAdd,
+  TabUser,
+  TabHomeOff,
+  TabMessagesOn,
+  TabAddOn,
+  TabUserOn,
+} from '../assets';
 import {NavigationContainer} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
@@ -43,7 +43,7 @@ const MainApp = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={focused ? IconHomeActive : IconHomeNon}
+              source={focused ? TabHome : TabHomeOff}
               style={{width: 30, height: 30, marginTop: 15}}
             />
           ),
@@ -52,12 +52,12 @@ const MainApp = () => {
         }}
       />
       <Tab.Screen
-        name="SearchMenu"
+        name="Search"
         component={Search}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={focused ? IconMessageActive : IconMessageNon}
+              source={focused ? TabMessagesOn : TabMessages}
               style={{width: 30, height: 30, marginTop: 15}}
             />
           ),
@@ -71,7 +71,7 @@ const MainApp = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={focused ? IconAddActive : IconAddNon}
+              source={focused ? TabAddOn : TabAdd}
               style={{width: 30, height: 30, marginTop: 15}}
             />
           ),
@@ -86,7 +86,7 @@ const MainApp = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={focused ? IconUserActive : IconUserNon}
+              source={focused ? TabUserOn : TabUser}
               style={{width: 30, height: 30, marginTop: 15}}
             />
           ),
@@ -124,8 +124,8 @@ const Router = () => {
         ) : (
           <>
             <Stack.Screen
-              name="Home"
-              component={Home}
+              name="MainApp"
+              component={MainApp}
               options={{headerShown: false}}
             />
             <Stack.Screen

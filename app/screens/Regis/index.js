@@ -10,7 +10,7 @@ import {register} from '../../store/action/auth';
 
 const screenWidth = Dimensions.get('window').width;
 
-const RegisScreen = () => {
+const Regis = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {messageError, isError, isLoading} = useSelector(state => state.regis);
@@ -113,7 +113,7 @@ const RegisScreen = () => {
   );
 };
 
-export default RegisScreen;
+export default Regis;
 
 const styles = StyleSheet.create({
   main: {
