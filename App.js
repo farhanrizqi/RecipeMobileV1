@@ -1,12 +1,18 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import Navigation from './app/navigation/Navigation';
+import Navigation from './app/navigation';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import storages from './app/store';
+import React, {Component} from 'react';
+
+const {store, persistor} = storages();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Navigation />
+      </PersistGate>
+    </Provider>
   );
 }
 

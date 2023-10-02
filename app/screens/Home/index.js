@@ -9,11 +9,11 @@ import {
   Image,
 } from 'react-native';
 import {Input, Text, Icon, Tile} from '@rneui/themed';
-import BeefImage from '../assets/img/BeefSteak.png';
-import SpaghettiImage from '../assets/img/Spaghetti.png';
-import soupImage from '../assets/img/soup.png';
-import utensilsImage from '../assets/img/utensils.png';
-import fishImage from '../assets/img/fish.png';
+import BeefImage from '../../assets/img/BeefSteak.png';
+import SpaghettiImage from '../../assets/img/Spaghetti.png';
+import soupImage from '../../assets/img/soup.png';
+import utensilsImage from '../../assets/img/utensils.png';
+import fishImage from '../../assets/img/fish.png';
 // import {SearchBar} from '@rneui/themed';
 
 function HomeScreen({navigation}) {
@@ -58,7 +58,7 @@ function HomeScreen({navigation}) {
           style={styles.scrollView}>
           <View style={styles.carousel}>
             <ImageBackground
-              source={require('../assets/img/discover2.png')}
+              source={require('../../assets/img/discover2.png')}
               resizeMode="cover"
               style={styles.image}>
               <Text style={styles.text}>Sandwich</Text>
@@ -67,7 +67,7 @@ function HomeScreen({navigation}) {
           </View>
           <View style={styles.carousel}>
             <ImageBackground
-              source={require('../assets/img/detail2.png')}
+              source={require('../../assets/img/detail2.png')}
               resizeMode="cover"
               style={{
                 width: 300,

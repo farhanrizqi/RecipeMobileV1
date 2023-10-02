@@ -2,10 +2,37 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, View, Image} from 'react-native';
 import {Text, Icon, ListItem} from '@rneui/themed';
-import avatar from '../assets/img/discover2.png';
+import avatar from '../../assets/img/discover2.png';
+import Toast from 'react-native-toast-message';
+import {Modal} from '../../components';
+import {logout} from '../../store/action/auth';
+import {useDispatch, useSelector} from 'react-redux';
 
 function ProfileScreen() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const login = useSelector(state => state.login);
+  let popupRef = React.createRef();
+
+  const onShowPopup = () => {
+    popupRef.show();
+  };
+
+  const onClosePopup = () => {
+    popupRef.close();
+  };
+
+  const handleLogout = () => {
+    onClosePopup();
+    Toast.show({
+      type: 'success',
+      text1: 'See you soon 🥤',
+    });
+
+    setTimeout(() => {
+      dispatch(logout());
+    }, 1000);
+  };
 
   const handleMyRecipe = () => {
     navigation.navigate('MyRecipeScreen');
@@ -18,38 +45,54 @@ function ProfileScreen() {
     <View style={styles.primaryContainer}>
       {/* <StatusBar backgroundColor="#EEC302" barStyle="light-content" /> */}
       <View style={styles.overlay}>
-        <Image source={avatar} style={styles.image} />
-        <Text style={styles.username}>Farhan Rizqi</Text>
+        <Image source={{uri: login.data.photos}} style={styles.image} />
+        <Text style={styles.username}>{login.data.name}</Text>
       </View>
       <View style={styles.profileMenu}>
-        <ListItem>
+        <ListItem onPress={() => navigation.push('Edit Profile')}>
           <Icon name="user" type="feather" color="#EEC302" />
           <ListItem.Content>
             <ListItem.Title>Edit profile</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-        <ListItem onPress={handleMyRecipe}>
+        <ListItem
+          onPress={() => navigation.push('MyRecipe', {itemId: login.data.id})}>
           <Icon name="award" type="feather" color="#EEC302" />
           <ListItem.Content>
             <ListItem.Title>My Recipe</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-        <ListItem onPress={handleSaveAndLike}>
+        <ListItem onPress={() => navigation.push('Save')}>
           <Icon name="bookmark" type="feather" color="#EEC302" />
           <ListItem.Content>
             <ListItem.Title>Saved Recipe</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-        <ListItem>
+        <ListItem onPress={() => navigation.push('Like')}>
           <Icon name="thumbs-up" type="feather" color="#EEC302" />
           <ListItem.Content>
             <ListItem.Title>Liked Recipe</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
+        <ListItem>
+          <Icon name="log-out" type="feather" color="red" />
+          <ListItem.Content>
+            <ListItem.Title onPress={onShowPopup}>Logout</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+        <Toast />
+        <Modal
+          title="Logout"
+          message={`Are you sure want to logout?`}
+          ref={target => (popupRef = target)}
+          onTouchOutside={onClosePopup}
+          onPress={handleLogout}
+        />
       </View>
     </View>
   );

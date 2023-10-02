@@ -1,37 +1,76 @@
-import {StyleSheet, View, Dimensions, ImageBackground} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+  ActivityIndicator,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import ActionButton from '../../components/ActionButton';
 import {useNavigation} from '@react-navigation/native';
 import {Input, Text, Icon} from '@rneui/themed';
 import discover2Image from '../../assets/img/discover2.png';
+import {useDispatch, useSelector} from 'react-redux';
+import {postLogin} from '../../store/action/auth';
+import Toast from 'react-native-toast-message';
 
-const screenWidth = Dimensions.get('window').width;
-
-const RegisScreen = () => {
+const Login = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {messageError, isError, isLoading} = useSelector(state => state.login);
+  const [isFocused, setIsFocused] = useState(false);
+  const [inputData, setInputData] = useState({
+    email: '',
+    password: '',
+  });
+
+  useEffect(() => {
+    if (isError && messageError) {
+      Toast.show({
+        type: 'error',
+        text1: messageError,
+      });
+    } else if (isError && !messageError) {
+      Toast.show({
+        type: 'error',
+        text1: `Something's Wrong`,
+      });
+    }
+  }, [isError, messageError]);
 
   const handleLoginPress = () => {
-    navigation.navigate('LoginScreen');
+    console.log('inputData in handleLoginPress:', inputData);
+    dispatch(postLogin(inputData, navigation));
+  };
+
+  const handleSignup = () => {
+    navigation.navigate('RegisScreen');
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   return (
     <View>
-      <View style={styles.overlay}></View>
+      <View style={styles.container}>
+        <ImageBackground source={discover2Image} style={styles.overlay} />
+      </View>
       <View style={styles.main}>
         <Text style={styles.welcome}>Welcome !</Text>
-        <Text style={styles.login}>Register to Recipe App.</Text>
-      </View>
-      <View>
-        <Input
-          inputContainerStyle={styles.inputName}
-          placeholder="Your Name "
-          leftIcon={<Icon type="feather" name="user" size={16} color="black" />}
-        />
+        <Text style={styles.login}>Log in to your exiting account.</Text>
       </View>
       <View>
         <Input
           inputContainerStyle={styles.inputEmail}
           placeholder="Email Address "
+          value={inputData.email}
+          onChangeText={text => setInputData({...inputData, email: text})}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           leftIcon={<Icon type="feather" name="user" size={16} color="black" />}
         />
       </View>
@@ -39,6 +78,8 @@ const RegisScreen = () => {
         <Input
           inputContainerStyle={styles.inputPass}
           placeholder="Password "
+          value={inputData.password}
+          onChangeText={text => setInputData({...inputData, password: text})}
           leftIcon={<Icon type="feather" name="lock" size={16} color="black" />}
           secureTextEntry={true}
         />
@@ -46,44 +87,43 @@ const RegisScreen = () => {
       <View style={styles.forgotCover}>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </View>
-      <ActionButton title="LOGIN" onPress={handleLoginPress} />
+      <ActionButton
+        title={
+          isLoading ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            'LOGIN'
+          )
+        }
+        onPress={handleLoginPress}
+      />
       <View style={styles.word}>
         <Text>
           <Text style={styles.dont}>Don’t have an account? </Text>
+          <Text style={styles.signup} onPress={handleSignup}>
+            Sign Up
+          </Text>
         </Text>
       </View>
     </View>
   );
 };
 
-export default RegisScreen;
+export default Login;
 
 const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
   },
-  overlay: {
-    width: '100%',
-    height: '50%',
-    backgroundColor: '#EEC302',
-  },
 
   container: {
     alignItems: 'center',
-    height: 200,
-    borderBottomLeftRadius: 10,
+    height: 100,
   },
 
   inputEmail: {
     paddingHorizontal: 20,
-    borderWidth: 1,
-    backgroundColor: '#EFEFEF',
-    borderColor: '#EFEFEF',
-    borderRadius: 10,
-  },
-  inputName: {
-    paddingHorizontal: 20,
-    marginTop: 20,
+    marginTop: 40,
     borderWidth: 1,
     backgroundColor: '#EFEFEF',
     borderColor: '#EFEFEF',
@@ -92,6 +132,7 @@ const styles = StyleSheet.create({
 
   inputPass: {
     paddingHorizontal: 20,
+    marginTop: 10,
     marginBottom: 30,
     borderWidth: 1,
     backgroundColor: '#EFEFEF',
@@ -100,8 +141,7 @@ const styles = StyleSheet.create({
   },
 
   overlay: {
-    // ...StyleSheet.absoluteFillObject,
-    width: '100%',
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(239, 200, 26, 0.5)',
     borderBottomLeftRadius: 22,
     borderBottomRightRadius: 22,
