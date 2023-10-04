@@ -8,7 +8,7 @@ import {Modal} from '../../components';
 import {logout} from '../../store/action/auth';
 import {useDispatch, useSelector} from 'react-redux';
 
-function ProfileScreen() {
+function Profile() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const login = useSelector(state => state.login);
@@ -134,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default Profile;

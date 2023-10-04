@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 import login from './login';
 import regis from './regis';
-import getMenuReducers from './getMenu';
+import getMenuReducers from './getMenuReducers';
 import {postMenu} from './postMenu';
 import getMenuByID from './getMenuByID';
 import getMenuByUsers from './getMenuByUsers.js';

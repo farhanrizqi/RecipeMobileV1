@@ -2,8 +2,11 @@ import {
   StyleSheet,
   View,
   TextInput,
+  ScrollView,
+  SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Input, Icon, Text, Image} from '@rneui/themed';
@@ -14,6 +17,7 @@ import {addRecipe} from '../../store/action/menu';
 import Toast from 'react-native-toast-message';
 
 const AddMenu = () => {
+  const {width} = Dimensions.get('window');
   const dispatch = useDispatch();
   let popupRef = React.createRef();
   let popupRefImage = React.createRef();
@@ -133,7 +137,7 @@ const AddMenu = () => {
   const popupList = [
     {
       id: 1,
-      name: 'Appetizers',
+      name: 'Appetizer',
     },
     {
       id: 2,
@@ -160,7 +164,7 @@ const AddMenu = () => {
         type: 'error',
         text1: 'Invalid Category',
         text2:
-          'Category must be 1 (Appetizers), 2 (Main Course), or 3 (Dessert).',
+          'Category must be 1 (Appetizer), 2 (Main Course), or 3 (Dessert).',
       });
       return;
     }
@@ -191,98 +195,113 @@ const AddMenu = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: 30,
-          color: '#EFC81A',
-          fontWeight: '700',
-          marginTop: 40,
-          marginBottom: 30,
-        }}>
-        Add Your Recipe
-      </Text>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <Text
+          style={{
+            fontSize: 30,
+            color: '#EFC81A',
+            fontWeight: '700',
+            marginTop: 40,
+            marginBottom: 30,
+          }}>
+          Add Your Recipe
+        </Text>
 
-      <View style={styles.addPhoto}>
-        {picture ? (
-          <View>
-            <Image source={{uri: picture.uri}} style={styles.addPhotoImage} />
-            <TouchableOpacity
-              onPress={onShowPopupImage}
-              style={styles.changePhotoButton}>
-              <Text style={{color: 'white', fontSize: 13}}>Change Photo</Text>
+        <View style={styles.addPhoto}>
+          {picture ? (
+            <View>
+              <Image source={{uri: picture.uri}} style={styles.addPhotoImage} />
+              <TouchableOpacity
+                onPress={onShowPopupImage}
+                style={styles.changePhotoButton}>
+                <Text style={{color: 'white', fontSize: 13}}>Change Photo</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity onPress={onShowPopupImage}>
+              <Icon
+                type="MaterialIcons"
+                name="add-a-photo"
+                size={40}
+                color="#8B8A8F"
+              />
+              <Text style={{color: '#8B8A8F', fontSize: 13}}>
+                Add your best picture.
+              </Text>
             </TouchableOpacity>
-          </View>
-        ) : (
-          <TouchableOpacity onPress={onShowPopupImage}>
-            <Icon
-              type="MaterialIcons"
-              name="add-a-photo"
-              size={40}
-              color="#8B8A8F"
-            />
-            <Text style={{color: '#8B8A8F', fontSize: 13}}>
-              Add your best picture.
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
-      <Input
-        inputContainerStyle={styles.input}
-        placeholder="Title"
-        value={title}
-        onChangeText={text => setTitle(text)}
-        leftIcon={
-          <Icon
-            marginLeft={10}
-            type="feather"
-            name="book-open"
-            size={28}
+          )}
+        </View>
+
+        <View>
+          <Input
+            inputContainerStyle={styles.title}
+            placeholder="Title"
+            placeholderTextColor="#8B8A8F"
+            color="#8B8A8F"
+            fontSize={15}
+            value={title}
+            onChangeText={text => setTitle(text)}
+            leftIcon={
+              <Icon
+                paddingLeft={10}
+                type="feather"
+                name="book-open"
+                size={20}
+                color="#8B8A8F"
+              />
+            }
+          />
+        </View>
+
+        <View>
+          <TextInput
+            style={styles.ingredients}
+            multiline
+            numberOfLines={4}
+            placeholder="Ingredients"
+            value={ingredients}
+            onChangeText={text => setIngredients(text)}
+            textAlign="left"
+            placeholderTextColor="#8B8A8F"
             color="#8B8A8F"
           />
-        }
-      />
+        </View>
 
-      <TextInput
-        style={styles.textInput}
-        multiline
-        numberOfLines={4}
-        placeholder="Ingredients"
-        value={ingredients}
-        onChangeText={text => setIngredients(text)}
-        textAlign="left"
-        placeholderTextColor="#8B8A8F"
-      />
-      <TouchableOpacity onPress={onShowPopup} style={styles.category}>
-        <Text style={{fontSize: 18, color: '#8B8A8F', marginLeft: 15}}>
-          {selectedCategory ? selectedCategory.name : 'Category'}
-        </Text>
-      </TouchableOpacity>
-      <Popup
-        title="Category"
-        ref={target => (popupRef = target)}
-        onTouchOutside={onClosePopup}
-        data={popupList}
-        onSelect={item => onCategorySelect(item)}
-      />
-      <PopupImg
-        title="Select Image from..."
-        ref={target => (popupRefImage = target)}
-        onTouchOutside={onClosePopupImage}
-        data={popupListImage}
-      />
-      <ActionButton
-        title={
-          isLoading ? (
-            <ActivityIndicator size="small" color="#ffffff" />
-          ) : (
-            'POST'
-          )
-        }
-        onPress={onPostButtonPress}
-      />
-      <Toast />
-    </View>
+        <View>
+          <TouchableOpacity onPress={onShowPopup} style={styles.category}>
+            <Text style={{fontSize: 15, color: '#8B8A8F', marginLeft: 15}}>
+              {selectedCategory ? selectedCategory.name : 'Category'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <Popup
+          title="Category"
+          ref={target => (popupRef = target)}
+          onTouchOutside={onClosePopup}
+          data={popupList}
+          onSelect={item => onCategorySelect(item)}
+        />
+        <PopupImg
+          title="Select Image from..."
+          ref={target => (popupRefImage = target)}
+          onTouchOutside={onClosePopupImage}
+          data={popupListImage}
+        />
+        <ActionButton
+          title={
+            isLoading ? (
+              <ActivityIndicator size="small" color="#ffffff" />
+            ) : (
+              'POST'
+            )
+          }
+          onPress={onPostButtonPress}
+        />
+        <Toast />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -290,25 +309,21 @@ export default AddMenu;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    padding: 10,
   },
-  input: {
+  title: {
     borderWidth: 1,
-    padding: 0,
-    fontSize: 16,
+    fontSize: 12,
     backgroundColor: '#F5F5F5',
     borderRadius: 10,
-    marginHorizontal: 20,
+    color: '#8B8A8F',
   },
 
-  textInput: {
+  ingredients: {
     borderWidth: 1,
-    // padding: 0,
-    fontSize: 16,
+    fontSize: 14,
     backgroundColor: '#F5F5F5',
     borderRadius: 10,
-    marginHorizontal: 20,
-    width: 328,
     marginBottom: 25,
     borderColor: '#8B8A8F',
     paddingLeft: 15,
@@ -316,7 +331,6 @@ const styles = StyleSheet.create({
 
   category: {
     height: 50,
-    width: 328,
     borderWidth: 1,
     backgroundColor: '#F5F5F5',
     borderRadius: 10,
@@ -326,7 +340,6 @@ const styles = StyleSheet.create({
   },
 
   addPhoto: {
-    width: 328,
     height: 200,
     borderWidth: 1,
     borderColor: '#8B8A8F',
@@ -338,7 +351,6 @@ const styles = StyleSheet.create({
   },
 
   addPhotoImage: {
-    width: 328,
     height: 200,
     borderRadius: 10,
   },

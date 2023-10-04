@@ -182,7 +182,7 @@ export const deleteRecipe = id => async dispatch => {
   }
 };
 
-export const addRecipe = dataREcipe => async dispatch => {
+export const addRecipe = dataRecipe => async dispatch => {
   try {
     const token = await AsyncStorage.getItem('token');
     if (!token) {
@@ -196,7 +196,7 @@ export const addRecipe = dataREcipe => async dispatch => {
 
     dispatch({type: 'POST_RECIPE_REQUEST'});
 
-    const result = await axios.post(`${API_URL}recipe`, dataREcipe, {
+    const result = await axios.post(`${API_URL}recipe`, dataRecipe, {
       headers,
     });
     console.log('result', result);

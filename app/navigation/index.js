@@ -22,11 +22,11 @@ import {
 } from '../screens';
 import {
   TabHome,
-  TabMessages,
+  TabMessage,
   TabAdd,
   TabUser,
   TabHomeOff,
-  TabMessagesOn,
+  TabMessageOn,
   TabAddOn,
   TabUserOn,
 } from '../assets';
@@ -44,7 +44,7 @@ const MainApp = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? TabHome : TabHomeOff}
-              style={{width: 30, height: 30, marginTop: 15}}
+              style={{width: 25, height: 25, marginTop: 15}}
             />
           ),
           tabBarLabel: '',
@@ -57,8 +57,8 @@ const MainApp = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={focused ? TabMessagesOn : TabMessages}
-              style={{width: 30, height: 30, marginTop: 15}}
+              source={focused ? TabMessageOn : TabMessage}
+              style={{width: 25, height: 25, marginTop: 15}}
             />
           ),
           tabBarLabel: '',
@@ -72,7 +72,7 @@ const MainApp = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? TabAddOn : TabAdd}
-              style={{width: 30, height: 30, marginTop: 15}}
+              style={{width: 25, height: 25, marginTop: 15}}
             />
           ),
           tabBarLabel: '',
@@ -87,7 +87,7 @@ const MainApp = () => {
           tabBarIcon: ({focused}) => (
             <Image
               source={focused ? TabUserOn : TabUser}
-              style={{width: 30, height: 30, marginTop: 15}}
+              style={{width: 25, height: 25, marginTop: 15}}
             />
           ),
           tabBarLabel: '',

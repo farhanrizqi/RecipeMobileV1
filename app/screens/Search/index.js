@@ -73,9 +73,9 @@ const Search = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [searchMenu, setSearchMenu] = useState('');
-  const [recipes, setRecipes] = useState(null);
-  const {getMenu} = useSelector(state => state);
-  const {data, isSuccess} = getMenu;
+  const [recipe, setRecipe] = useState(null);
+  const {getMenuReducers} = useSelector(state => state);
+  const {data, isSuccess} = getMenuReducers;
   const [currentPage, setCurrentPage] = useState(1);
   const [focusedItem, setFocusedItem] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -108,7 +108,7 @@ const Search = () => {
     const endIndex = startIndex + itemsPerPage;
     const paginatedData = filteredData.slice(startIndex, endIndex);
 
-    setRecipes(paginatedData);
+    setRecipe(paginatedData);
     setCurrentData(paginatedData);
   };
 
@@ -120,7 +120,7 @@ const Search = () => {
         const startIndex = (currentPage - 2) * itemsPerPage;
         const endIndex = (currentPage - 1) * itemsPerPage;
         const previousData = allRecipes.slice(startIndex, endIndex);
-        setRecipes(previousData);
+        setRecipe(previousData);
         setCurrentData(previousData);
       } else {
         const startIndex = (currentPage - 2) * itemsPerPage;
@@ -131,7 +131,7 @@ const Search = () => {
               item.category.toLowerCase() === selectedCategory.toLowerCase(),
           )
           .slice(startIndex, endIndex);
-        setRecipes(previousData);
+        setRecipe(previousData);
         setCurrentData(previousData);
       }
     }
@@ -148,7 +148,7 @@ const Search = () => {
         const startIndex = currentPage * itemsPerPage;
         const endIndex = Math.min((currentPage + 1) * itemsPerPage, totalItems);
         const nextData = allRecipes.slice(startIndex, endIndex);
-        setRecipes(nextData);
+        setRecipe(nextData);
         setCurrentData(nextData);
       } else {
         const startIndex = currentPage * itemsPerPage;
@@ -159,16 +159,17 @@ const Search = () => {
               item.category.toLowerCase() === selectedCategory.toLowerCase(),
           )
           .slice(startIndex, endIndex);
-        setRecipes(nextData);
+        setRecipe(nextData);
         setCurrentData(nextData);
       }
     }
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      const newData = data.data.slice(0, itemsPerPage);
-      setRecipes(newData);
+    if (isSuccess && data && data.data) {
+      const recipeData = data.data.slice(0, itemsPerPage);
+      console.log(recipeData);
+      setRecipes(recipeData);
 
       setAllRecipes(data.data);
       setFilteredRecipes(data.data);
@@ -217,14 +218,14 @@ const Search = () => {
     setSelectedCategory(category);
 
     if (category === 'All') {
-      setRecipes(filteredRecipes.slice(0, itemsPerPage));
+      setRecipe(filteredRecipes.slice(0, itemsPerPage));
       setCurrentPage(1);
     } else {
       const filteredData = filteredRecipes.filter(
         item => item.category.toLowerCase() === category.toLowerCase(),
       );
 
-      setRecipes(filteredData.slice(0, itemsPerPage));
+      setRecipe(filteredData.slice(0, itemsPerPage));
       setCurrentPage(1);
     }
   };
@@ -232,12 +233,12 @@ const Search = () => {
   const filterRecipes = (searchText, category) => {
     if (!searchText) {
       if (category === 'All') {
-        setRecipes(data.data.slice(0, itemsPerPage));
+        setRecipe(data.data.slice(0, itemsPerPage));
       } else {
         const filteredData = data.data.filter(
           item => item.category.toLowerCase() === category.toLowerCase(),
         );
-        setRecipes(filteredData.slice(0, itemsPerPage));
+        setRecipe(filteredData.slice(0, itemsPerPage));
       }
     } else {
       const filteredData = data.data.filter(
@@ -251,7 +252,7 @@ const Search = () => {
       const endIndex = startIndex + itemsPerPage;
       const paginatedData = filteredData.slice(startIndex, endIndex);
 
-      setRecipes(paginatedData);
+      setRecipe(paginatedData);
     }
   };
 
@@ -273,7 +274,7 @@ const Search = () => {
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  console.log(recipes);
+  console.log(recipe);
 
   return (
     <View
@@ -348,7 +349,7 @@ const Search = () => {
       </View>
       <View style={{marginBottom: 200}}>
         <FlatList
-          data={recipes}
+          data={recipe}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />

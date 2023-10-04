@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 
 const CustomButton = ({title, onPress}) => {
   return (
@@ -23,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: 300,
+    width: '100%',
     height: 50,
     backgroundColor: '#EFC81A',
     borderRadius: 8,
