@@ -3,6 +3,7 @@ import {
   Text,
   View,
   ScrollView,
+  SafeAreaView,
   FlatList,
   TouchableOpacity,
   Dimensions,
@@ -169,7 +170,7 @@ const Search = () => {
     if (isSuccess && data && data.data) {
       const recipeData = data.data.slice(0, itemsPerPage);
       console.log(recipeData);
-      setRecipes(recipeData);
+      setRecipe(recipeData);
 
       setAllRecipes(data.data);
       setFilteredRecipes(data.data);
@@ -277,125 +278,141 @@ const Search = () => {
   console.log(recipe);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-      }}>
-      <View style={{width: screenWidth}}>
-        <SearchBar
-          inputContainerStyle={{
-            backgroundColor: '#EFEFEF',
-            borderColor: 'EFEFEF',
-            borderRadius: 10,
-            color: 'black',
-          }}
-          containerStyle={{
-            backgroundColor: '#EFEFEF',
-            padding: 0,
-            fontSize: 16,
-            backgroundColor: '#F5F5F5',
-            width: 330,
-            marginTop: 20,
-            borderRadius: 10,
-            marginLeft: 30,
-            color: 'black',
-          }}
-          placeholder="What are you cooking today?"
-          value={searchMenu}
-          onChangeText={handleSearchChange}
-          lightTheme={true}
-          showCancel={true}
-        />
-        <ScrollView
-          style={styles.categories}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity
-            style={[
-              styles.categoryButton,
-              selectedCategory === 'All' && styles.selectedCategoryButton,
-            ]}
-            onPress={() => handleCategoryChange('All')}>
-            <Text style={styles.categoryButtonText}>All</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.categoryButton,
-              selectedCategory === 'Appetizers' &&
-                styles.selectedCategoryButton,
-            ]}
-            onPress={() => handleCategoryChange('Appetizers')}>
-            <Text style={styles.categoryButtonText}>Appetizers</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.categoryButton,
-              selectedCategory === 'Main Course' &&
-                styles.selectedCategoryButton,
-            ]}
-            onPress={() => handleCategoryChange('Main Course')}>
-            <Text style={styles.categoryButtonText}>Main Course</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.categoryButton,
-              selectedCategory === 'Dessert' && styles.selectedCategoryButton,
-            ]}
-            onPress={() => handleCategoryChange('Dessert')}>
-            <Text style={styles.categoryButtonText}>Dessert</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-      <View style={{marginBottom: 200}}>
-        <FlatList
-          data={recipe}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-        <View style={styles.pagination}>
-          <TouchableOpacity
-            onPress={goToPreviousPage}
-            style={[
-              styles.paginationButton,
-              currentPage === 1 && styles.disabledPaginationButton,
-            ]}
-            disabled={currentPage === 1}>
-            <Icon type="feather" name="chevron-left" size={30} color="white" />
-          </TouchableOpacity>
-          <Text>{`${Math.min(
-            (currentPage - 1) * itemsPerPage + 1,
-            totalItems,
-          )}-${Math.min(
-            currentPage * itemsPerPage,
-            totalItems,
-          )} of ${totalItems}`}</Text>
-          <TouchableOpacity
-            onPress={goToNextPage}
-            style={[
-              styles.paginationButton,
-              currentPage * itemsPerPage >= totalItems &&
-                styles.disabledPaginationButton,
-            ]}
-            disabled={currentPage * itemsPerPage >= totalItems}>
-            <Icon type="feather" name="chevron-right" size={30} color="white" />
-          </TouchableOpacity>
+    <ScrollView>
+      <SafeAreaView>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'white',
+          }}>
+          <View style={styles.containerUtility}>
+            <SearchBar
+              inputContainerStyle={{
+                backgroundColor: '#EFEFEF',
+                borderColor: 'EFEFEF',
+                borderRadius: 10,
+                color: 'black',
+              }}
+              containerStyle={{
+                backgroundColor: '#EFEFEF',
+                padding: 0,
+                fontSize: 16,
+                backgroundColor: '#F5F5F5',
+                width: '100%',
+                marginTop: 20,
+                borderRadius: 10,
+                color: 'black',
+              }}
+              placeholder="What are you cooking today?"
+              value={searchMenu}
+              onChangeText={handleSearchChange}
+              lightTheme={true}
+              showCancel={true}
+            />
+            <ScrollView
+              style={styles.filter}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+              <TouchableOpacity
+                style={[
+                  styles.categoryButton,
+                  selectedCategory === 'All' && styles.selectedCategoryButton,
+                ]}
+                onPress={() => handleCategoryChange('All')}>
+                <Text style={styles.categoryButtonText}>All</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.categoryButton,
+                  selectedCategory === 'Appetizers' &&
+                    styles.selectedCategoryButton,
+                ]}
+                onPress={() => handleCategoryChange('Appetizers')}>
+                <Text style={styles.categoryButtonText}>Appetizers</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.categoryButton,
+                  selectedCategory === 'Main Course' &&
+                    styles.selectedCategoryButton,
+                ]}
+                onPress={() => handleCategoryChange('Main Course')}>
+                <Text style={styles.categoryButtonText}>Main Course</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.categoryButton,
+                  selectedCategory === 'Dessert' &&
+                    styles.selectedCategoryButton,
+                ]}
+                onPress={() => handleCategoryChange('Dessert')}>
+                <Text style={styles.categoryButtonText}>Dessert</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+          <View style={{marginBottom: 200}}>
+            <FlatList
+              data={recipe}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+            />
+            <View style={styles.pagination}>
+              <TouchableOpacity
+                onPress={goToPreviousPage}
+                style={[
+                  styles.paginationButton,
+                  currentPage === 1 && styles.disabledPaginationButton,
+                ]}
+                disabled={currentPage === 1}>
+                <Icon
+                  type="feather"
+                  name="chevron-left"
+                  size={30}
+                  color="white"
+                />
+              </TouchableOpacity>
+              <Text>{`${Math.min(
+                (currentPage - 1) * itemsPerPage + 1,
+                totalItems,
+              )}-${Math.min(
+                currentPage * itemsPerPage,
+                totalItems,
+              )} of ${totalItems}`}</Text>
+              <TouchableOpacity
+                onPress={goToNextPage}
+                style={[
+                  styles.paginationButton,
+                  currentPage * itemsPerPage >= totalItems &&
+                    styles.disabledPaginationButton,
+                ]}
+                disabled={currentPage * itemsPerPage >= totalItems}>
+                <Icon
+                  type="feather"
+                  name="chevron-right"
+                  size={30}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
 export default Search;
 
 const styles = StyleSheet.create({
+  containerUtility: {
+    paddingHorizontal: 10,
+  },
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
     marginBottom: 20,
-    // backgroundColor: 'blue',
     marginRight: 20,
   },
 
@@ -412,9 +429,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
 
-  categories: {
+  filter: {
     flexDirection: 'row',
-    marginHorizontal: 30,
     marginTop: 10,
     marginBottom: 10,
   },

@@ -17,7 +17,10 @@ export const getMenu = () => async dispatch => {
 
     dispatch({type: 'GET_MENU_REQUEST'});
 
-    const response = await axios.get(`${API_URL}recipe`, {headers});
+    const response = await axios.get(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/recipe`,
+      {headers},
+    );
 
     if (response.data && response.data.message) {
       dispatch({type: 'GET_MENU_SUCCESS', payload: response.data});
