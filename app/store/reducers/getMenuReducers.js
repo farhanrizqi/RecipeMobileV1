@@ -1,9 +1,9 @@
 const InitialState = {
-  data: [],
+  data: [], // Harus diinisialisasi sebagai array kosong
   isLoading: false,
   isError: false,
   messageError: '',
-  isSuccess: true,
+  isSuccess: true, // Ini mungkin seharusnya false saat inisialisasi
 };
 
 const getMenuReducers = (state = InitialState, {type, payload}) => {

@@ -14,9 +14,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {getMenu} from '../../store/action/menu';
 
-const screenWidth = Dimensions.get('window').width;
-
-const Items = ({id, img, title, category, navigation, author, photos}) => {
+const Items = ({
+  id,
+  img,
+  title,
+  category,
+  navigation,
+  author,
+  author_photos,
+}) => {
   return (
     <ScrollView>
       <View
@@ -59,7 +65,7 @@ const Items = ({id, img, title, category, navigation, author, photos}) => {
               marginTop: 15,
             }}>
             <Image
-              source={{uri: photos}}
+              source={{uri: author_photos}}
               style={{height: 28, width: 28, borderRadius: 50}}
             />
             <Text style={{marginLeft: 5}}>{author}</Text>
@@ -75,7 +81,9 @@ const Search = () => {
   const navigation = useNavigation();
   const [searchMenu, setSearchMenu] = useState('');
   const [recipe, setRecipe] = useState(null);
-  const {getMenuReducers} = useSelector(state => state);
+  const {getMenuReducers} = useSelector(state => ({
+    getMenuReducers: state.getMenuReducers,
+  }));
   const {data, isSuccess} = getMenuReducers;
   const [currentPage, setCurrentPage] = useState(1);
   const [focusedItem, setFocusedItem] = useState(null);
@@ -84,11 +92,11 @@ const Search = () => {
   const [allRecipes, setAllRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [currentData, setCurrentData] = useState([]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     dispatch(getMenu());
-  }, []);
+  }, [dispatch]);
 
   const filterAndPaginateRecipes = (searchText, page) => {
     let filteredData = allRecipes;
@@ -210,7 +218,7 @@ const Search = () => {
         category={item.category}
         navigation={navigation}
         author={item.author}
-        photos={item.photos}
+        photos={item.author_photos}
       />
     </TouchableOpacity>
   );
@@ -444,7 +452,7 @@ const styles = StyleSheet.create({
   },
 
   selectedCategoryButton: {
-    backgroundColor: '#00E092',
+    backgroundColor: '#EFC81A',
   },
 
   categoryButtonText: {

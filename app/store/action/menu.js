@@ -22,22 +22,30 @@ export const getMenu = () => async dispatch => {
       {headers},
     );
 
-    if (response.data && response.data.message) {
+    if (response.data) {
       dispatch({type: 'GET_MENU_SUCCESS', payload: response.data});
       console.log('Success');
     } else {
       console.log('Invalid response data:', response.data);
+
+      if (response.data && response.data.message) {
+        // Atur pesan kesalahan sesuai dengan respons API Anda
+        dispatch({type: 'GET_MENU_ERROR', payload: response.data.message});
+      } else {
+        // Atau gunakan pesan kesalahan default jika tidak ada pesan kesalahan dari respons
+        dispatch({type: 'GET_MENU_ERROR', payload: 'Invalid response data'});
+      }
     }
   } catch (err) {
     console.error('Error:', err);
 
     if (
-      err.response?.data?.message ===
+      err.response?.data?.data?.message ===
       'Login session expired, please login again'
     ) {
       Toast.show({
         type: 'error',
-        text1: err.response.data.message,
+        text1: err.response.data.data.message,
       });
 
       setTimeout(() => {
