@@ -47,7 +47,7 @@ const Items = ({
           }}>
           <Text
             onPress={() => navigation.push('DetailMenu', {itemId: id})}
-            style={{fontSize: 16, fontWeight: 'bold'}}>
+            style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
             {title}
           </Text>
           <View
@@ -56,7 +56,9 @@ const Items = ({
               alignItems: 'center',
               marginTop: 10,
             }}>
-            <Text>{category}</Text>
+            <Text style={{fontSize: 10, fontWeight: 'bold', color: 'black'}}>
+              {category}
+            </Text>
           </View>
           <View
             style={{
@@ -66,9 +68,22 @@ const Items = ({
             }}>
             <Image
               source={{uri: author_photos}}
-              style={{height: 28, width: 28, borderRadius: 50}}
+              style={{
+                height: 30,
+                width: 30,
+                borderRadius: 50,
+                backgroundColor: 'gray',
+              }}
             />
-            <Text style={{marginLeft: 5}}>{author}</Text>
+            <Text
+              style={{
+                marginLeft: 5,
+                fontSize: 10,
+                fontWeight: 'bold',
+                color: 'black',
+              }}>
+              {author}
+            </Text>
           </View>
         </View>
       </View>

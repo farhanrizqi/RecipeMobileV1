@@ -207,14 +207,19 @@ export const addRecipe = dataRecipe => async dispatch => {
 
     dispatch({type: 'POST_RECIPE_REQUEST'});
 
-    const result = await axios.post(`${API_URL}recipe`, dataRecipe, {
-      headers,
-    });
+    const result = await axios.post(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/
+    recipe`,
+      dataRecipe,
+      {
+        headers,
+      },
+    );
     console.log('result', result);
 
     dispatch({
       type: 'POST_RECIPE_SUCCESS',
-      payload: result.data.data,
+      payload: result.data,
     });
     Toast.show({
       type: 'success',
