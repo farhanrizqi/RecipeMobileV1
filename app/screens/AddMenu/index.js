@@ -208,6 +208,27 @@ const AddMenu = () => {
           Add Your Recipe
         </Text>
 
+        <View>
+          <Input
+            inputContainerStyle={styles.title}
+            placeholder="Title"
+            placeholderTextColor="#8B8A8F"
+            color="#8B8A8F"
+            fontSize={15}
+            value={title}
+            onChangeText={text => setTitle(text)}
+            leftIcon={
+              <Icon
+                paddingLeft={10}
+                type="feather"
+                name="book-open"
+                size={20}
+                color="#8B8A8F"
+              />
+            }
+          />
+        </View>
+
         <View style={styles.addPhoto}>
           {picture ? (
             <View>
@@ -231,27 +252,6 @@ const AddMenu = () => {
               </Text>
             </TouchableOpacity>
           )}
-        </View>
-
-        <View>
-          <Input
-            inputContainerStyle={styles.title}
-            placeholder="Title"
-            placeholderTextColor="#8B8A8F"
-            color="#8B8A8F"
-            fontSize={15}
-            value={title}
-            onChangeText={text => setTitle(text)}
-            leftIcon={
-              <Icon
-                paddingLeft={10}
-                type="feather"
-                name="book-open"
-                size={20}
-                color="#8B8A8F"
-              />
-            }
-          />
         </View>
 
         <View>
