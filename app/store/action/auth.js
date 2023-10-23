@@ -1,11 +1,11 @@
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 import {API_URL} from '@env';
 
 export const postLogin = data => async dispatch => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   try {
     dispatch({type: 'LOGIN_REQUEST'});
     const result = await axios.post(

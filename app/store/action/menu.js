@@ -186,7 +186,7 @@ export const deleteRecipe = id => async dispatch => {
 
       setTimeout(() => {
         dispatch(logout());
-      }, 4000);
+      }, 3000);
     } else {
       dispatch({type: 'DELETE_MENU_ERROR', payload: err.message});
     }
@@ -208,8 +208,7 @@ export const addRecipe = dataRecipe => async dispatch => {
     dispatch({type: 'POST_RECIPE_REQUEST'});
 
     const result = await axios.post(
-      `https://kind-gray-hippopotamus-tie.cyclic.app/
-    recipe`,
+      `https://kind-gray-hippopotamus-tie.cyclic.app/recipe`,
       dataRecipe,
       {
         headers,
@@ -219,7 +218,7 @@ export const addRecipe = dataRecipe => async dispatch => {
 
     dispatch({
       type: 'POST_RECIPE_SUCCESS',
-      payload: result.data,
+      payload: result.data.data,
     });
     Toast.show({
       type: 'success',
@@ -228,12 +227,12 @@ export const addRecipe = dataRecipe => async dispatch => {
     dispatch(getMenu());
   } catch (error) {
     if (
-      error.response?.data?.message ===
+      error.response?.data?.data?.message ===
       'Login session expired, please login again'
     ) {
       Toast.show({
         type: 'error',
-        text1: error.response.data.message,
+        text1: error.response.data.data.message,
       });
 
       setTimeout(() => {
@@ -247,7 +246,7 @@ export const addRecipe = dataRecipe => async dispatch => {
       console.log(error);
       Toast.show({
         type: 'error',
-        text1: error.response.data.message,
+        text1: error.response.data.data.message,
       });
     }
   }

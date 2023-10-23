@@ -2,7 +2,7 @@ import AddMenu from './AddMenu';
 import Search from './Search';
 import Home from './Home';
 import Login from './Login';
-import Profile from './Profile';
+import Profiles from './Profiles';
 import Regis from './Regis';
 import DetailMenu from './DetailMenu';
 import MyRecipe from './MyRecipe';
@@ -17,7 +17,7 @@ export {
   Search,
   Home,
   Login,
-  Profile,
+  Profiles,
   Regis,
   DetailMenu,
   MyRecipe,

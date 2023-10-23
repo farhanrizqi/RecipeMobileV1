@@ -2,13 +2,12 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, View, Image} from 'react-native';
 import {Text, Icon, ListItem} from '@rneui/themed';
-import avatar from '../../assets/img/discover2.png';
 import Toast from 'react-native-toast-message';
-import {Modal} from '../../components';
+import {ModalComponent} from '../../components';
 import {logout} from '../../store/action/auth';
 import {useDispatch, useSelector} from 'react-redux';
 
-function Profile() {
+const Profiles = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const login = useSelector(state => state.login);
@@ -26,19 +25,12 @@ function Profile() {
     onClosePopup();
     Toast.show({
       type: 'success',
-      text1: 'See you soon 🥤',
+      text1: 'Comeback anytime 🥤',
     });
 
     setTimeout(() => {
       dispatch(logout());
     }, 1000);
-  };
-
-  const handleMyRecipe = () => {
-    navigation.navigate('MyRecipeScreen');
-  };
-  const handleSaveAndLike = () => {
-    navigation.navigate('SaveAndLikeScreen');
   };
 
   return (
@@ -49,7 +41,7 @@ function Profile() {
         <Text style={styles.username}>{login.data.name}</Text>
       </View>
       <View style={styles.profileMenu}>
-        <ListItem onPress={() => navigation.push('Edit Profile')}>
+        <ListItem onPress={() => navigation.push('EditProfile')}>
           <Icon name="user" type="feather" color="#EEC302" />
           <ListItem.Content>
             <ListItem.Title>Edit profile</ListItem.Title>
@@ -86,7 +78,7 @@ function Profile() {
           <ListItem.Chevron />
         </ListItem>
         <Toast />
-        <Modal
+        <ModalComponent
           title="Logout"
           message={`Are you sure want to logout?`}
           ref={target => (popupRef = target)}
@@ -96,7 +88,7 @@ function Profile() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   primaryContainer: {
@@ -134,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default Profiles;

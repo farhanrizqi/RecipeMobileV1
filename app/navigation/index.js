@@ -15,7 +15,7 @@ import {
   Like,
   Login,
   MyRecipe,
-  Profile,
+  Profiles,
   Regis,
   Save,
   Search,
@@ -81,8 +81,8 @@ const MainApp = () => {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Profiles"
+        component={Profiles}
         options={{
           tabBarIcon: ({focused}) => (
             <Image

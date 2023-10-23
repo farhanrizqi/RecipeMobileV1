@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,7 +9,6 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {Input, Icon, Text, Image} from '@rneui/themed';
 import {ActionButton, Popup, PopupImg} from '../../components';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -178,7 +178,7 @@ const AddMenu = () => {
     }
 
     if (picture) {
-      dataRecipe.append('photo', {
+      dataRecipe.append('img', {
         uri: picture.uri,
         type: picture.type,
         name: picture.fileName,
@@ -191,7 +191,7 @@ const AddMenu = () => {
       setIngredients('');
       setPicture(null);
       setSelectedCategory(null);
-    }, 2000);
+    }, 3000);
   };
 
   return (

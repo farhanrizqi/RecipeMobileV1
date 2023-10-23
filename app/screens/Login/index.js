@@ -1,15 +1,15 @@
+import React, {useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
   ImageBackground,
   ActivityIndicator,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import ActionButton from '../../components/ActionButton';
-import {useNavigation} from '@react-navigation/native';
-import {Input, Text, Icon} from '@rneui/themed';
-import discover2Image from '../../assets/img/discover2.png';
 import {useDispatch, useSelector} from 'react-redux';
+import {Input, Text, Icon} from '@rneui/themed';
+import ActionButton from '../../components/ActionButton';
+import discover2Image from '../../assets/img/discover2.png';
 import {postLogin} from '../../store/action/auth';
 import Toast from 'react-native-toast-message';
 
@@ -149,9 +149,6 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    // ...StyleSheet.absoluteFillObject,
-    // width: 100,
-    // height: 100,
     marginTop: 50,
   },
 
