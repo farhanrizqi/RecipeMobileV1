@@ -8,15 +8,16 @@ import {
   TouchableOpacity,
   FlatList,
   SafeAreaView,
+  Dimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {getMenuUsers, deleteRecipe, getMenu} from '../../store/action/menu';
 import {Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
-import {Modal} from '../../components';
+import {ModalComponent} from '../../components';
 
-const Items = ({id, img, title, category, author, photos}) => {
+const Items = ({id, img, title, category, author}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const login = useSelector(state => state.login);
@@ -34,7 +35,8 @@ const Items = ({id, img, title, category, author, photos}) => {
     dispatch(deleteRecipe(id))
       .then(() => {
         onClosePopup();
-        dispatch(getMenuUsers(login.data.id));
+        dispatch(getMenuUsers(login.data.data.user.id));
+        console.log(login.data);
         dispatch(getMenu());
       })
       .catch(error => {
@@ -44,19 +46,21 @@ const Items = ({id, img, title, category, author, photos}) => {
         });
       });
   };
+  console.log('Data in Items: ', {id, img, title, category, author});
 
   return (
-    <View>
-      <View>
+    <SafeAreaView>
+      <View style={{width: Dimensions.get('window').width}}>
         <TouchableOpacity
           onPress={() => navigation.push('DetailMenu', {itemId: id})}
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            marginTop: 10,
-            marginBottom: 10,
+            marginVertical: 10,
+            // paddingRight: 40,
+            paddingLeft: 10,
+            // marginHorizontal: 30,
             borderRadius: 20,
-            marginHorizontal: 30,
             justifyContent: 'flex-start',
           }}>
           <View>
@@ -74,7 +78,7 @@ const Items = ({id, img, title, category, author, photos}) => {
             }}>
             <Text
               onPress={() => navigation.push('DetailMenu', {itemId: id})}
-              style={{fontSize: 16, fontWeight: 'bold'}}>
+              style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
               {title}
             </Text>
             <View
@@ -83,7 +87,7 @@ const Items = ({id, img, title, category, author, photos}) => {
                 alignItems: 'center',
                 marginTop: 10,
               }}>
-              <Text>{category}</Text>
+              <Text style={{color: 'black'}}>{category}</Text>
             </View>
             <View
               style={{
@@ -91,16 +95,16 @@ const Items = ({id, img, title, category, author, photos}) => {
                 alignItems: 'center',
                 marginTop: 15,
               }}>
-              <Image
-                source={{uri: photos}}
+              {/* <Image
+                source={{uri: author_photos}}
                 style={{height: 28, width: 28, borderRadius: 50}}
-              />
-              <Text style={{marginLeft: 5}}>{author}</Text>
+              /> */}
+              <Text style={{color: 'black'}}>{author}</Text>
             </View>
           </View>
           <View
             style={{
-              marginLeft: 10,
+              // marginLeft: 10,
               width: 90,
               height: '100%',
               alignItems: 'center',
@@ -137,7 +141,7 @@ const Items = ({id, img, title, category, author, photos}) => {
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
-        <Modal
+        <ModalComponent
           title="Confirm"
           message={`Are you sure to delete ${title}?`}
           ref={target => (popupRef = target)}
@@ -145,7 +149,7 @@ const Items = ({id, img, title, category, author, photos}) => {
           onPress={handleDelete}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -156,11 +160,14 @@ const MyRecipe = () => {
   const getMenuByUsers = useSelector(state => state.getMenuByUsers);
   const {data, isSuccess, isError} = getMenuByUsers;
 
+  let deviceWidth = Dimensions.get('window').width;
+
   console.log(data);
 
   useEffect(() => {
-    dispatch(getMenuUsers(login.data.id));
-  }, [dispatch, login.data.id]);
+    dispatch(getMenuUsers(login.data.data.user.id));
+    console.log(login.data.data.user.id);
+  }, [dispatch, login.data.data.user.id]);
 
   return (
     <View style={styles.container}>
@@ -177,7 +184,7 @@ const MyRecipe = () => {
         <Icon
           type="feather"
           name="chevron-left"
-          size={60}
+          size={35}
           color="#EFC81A"
           // marginLeft={10}
           onPress={() => navigation.goBack()}
@@ -192,7 +199,7 @@ const MyRecipe = () => {
           My Recipe
         </Text>
         <Text style={{fontSize: 30, color: '#EFC81A', fontWeight: '700'}}>
-          {data.data ? data.data.length : 0}
+          {/* {data.data ? data.data.length : 0} */}
         </Text>
       </View>
 
@@ -214,7 +221,7 @@ const MyRecipe = () => {
                   category={item.category}
                   navigation={navigation}
                   author={item.author}
-                  photos={item.photos}
+                  // photos={item.author_photos}
                 />
               )}
             />
@@ -235,9 +242,12 @@ export default MyRecipe;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    width: Dimensions.get('window').width,
+    // width: '100%',
   },
 
   content: {
+    // backgroundColor: 'grey',
     width: '100%',
   },
 });

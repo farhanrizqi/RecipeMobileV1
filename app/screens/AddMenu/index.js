@@ -247,9 +247,6 @@ const AddMenu = () => {
                 size={40}
                 color="#8B8A8F"
               />
-              <Text style={{color: '#8B8A8F', fontSize: 13}}>
-                Add your best picture.
-              </Text>
             </TouchableOpacity>
           )}
         </View>

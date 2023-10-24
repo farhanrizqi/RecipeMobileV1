@@ -70,9 +70,12 @@ export const getMenuDetails = id => async dispatch => {
 
     dispatch({type: 'GET_MENU_DETAILS_REQUEST'});
 
-    const response = await axios.get(`${API_URL}recipe/id/${id}`, {headers});
+    const response = await axios.get(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/recipe/id/${id}`,
+      {headers},
+    );
 
-    if (response.data && response.data.message) {
+    if (response.data) {
       dispatch({type: 'GET_MENU_DETAILS_SUCCESS', payload: response.data});
       console.log('Success');
     } else {
@@ -112,11 +115,14 @@ export const getMenuUsers = id => async dispatch => {
 
     dispatch({type: 'GET_MENU_USERS_REQUEST'});
 
-    const response = await axios.get(`${API_URL}recipe/user/${id}`, {
-      headers,
-    });
+    const response = await axios.get(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/recipe/users/${id}`,
+      {
+        headers,
+      },
+    );
 
-    if (response.data && response.data.message) {
+    if (response.data) {
       dispatch({type: 'GET_MENU_USERS_SUCCESS', payload: response.data});
       console.log('Success');
     } else {
@@ -159,7 +165,10 @@ export const deleteRecipe = id => async dispatch => {
 
     dispatch({type: 'DELETE_MENU_REQUEST'});
 
-    const response = await axios.delete(`${API_URL}recipe/${id}`, {headers});
+    const response = await axios.delete(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/recipe/${id}`,
+      {headers},
+    );
 
     if (response.data && response.data.message) {
       dispatch({type: 'DELETE_MENU_SUCCESS', payload: response.data});
@@ -266,9 +275,13 @@ export const updateMenu = (id, data) => async dispatch => {
 
     dispatch({type: 'PUT_RECIPE_REQUEST'});
 
-    const result = await axios.put(`${API_URL}recipe/${id}`, data, {
-      headers,
-    });
+    const result = await axios.put(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/recipe/${id}`,
+      data,
+      {
+        headers,
+      },
+    );
     console.log('result', result);
 
     dispatch({
@@ -323,9 +336,13 @@ export const updateProfile = (id, data) => async dispatch => {
 
     dispatch({type: 'PUT_PROFILE_REQUEST'});
 
-    const result = await axios.put(`${API_URL}users/${id}`, data, {
-      headers,
-    });
+    const result = await axios.put(
+      `https://kind-gray-hippopotamus-tie.cyclic.app/users/${id}`,
+      data,
+      {
+        headers,
+      },
+    );
     console.log('result', result);
 
     dispatch({
