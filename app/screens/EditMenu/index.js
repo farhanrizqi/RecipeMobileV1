@@ -4,6 +4,8 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Input, Icon, Text, Image} from '@rneui/themed';
@@ -34,15 +36,17 @@ const EditMenu = ({route, navigation}) => {
 
   useEffect(() => {
     if (data) {
-      setTitle(data.data.title || '');
-      setIngredients(data.data.ingredients || '');
+      setTitle(data.title || '');
+      setIngredients(data.ingredients || '');
       setSelectedCategory({
-        id: data.data.category_id,
-        name: data.data.category,
+        id: data.category_id,
+        name: data.category,
       });
-      setPicture(data.data.img ? {uri: data.data.img} : null);
+      setPicture(data.img ? {uri: data.img} : null);
     }
   }, [data]);
+
+  console.log('data : ', data);
 
   const onShowPopup = () => {
     popupRef.show();
@@ -192,100 +196,101 @@ const EditMenu = ({route, navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: 30,
-          color: '#EFC81A',
-          fontWeight: '700',
-          marginTop: 40,
-          marginBottom: 30,
-          marginHorizontal: 30,
-          textAlign: 'center',
-        }}>
-        Update Recipe
-      </Text>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <Text
+          style={{
+            fontSize: 30,
+            color: '#EFC81A',
+            fontWeight: '700',
+            marginTop: 40,
+            marginBottom: 30,
+            marginHorizontal: 30,
+            textAlign: 'center',
+          }}>
+          Update Recipe
+        </Text>
 
-      <View style={styles.addPhoto}>
-        {picture ? (
-          <View>
-            <Image source={picture} style={styles.addPhotoImage} />
-            <TouchableOpacity
-              onPress={onShowPopupImage}
-              style={styles.changePhotoButton}>
-              <Text style={{color: 'white', fontSize: 13}}>Change Photo</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <TouchableOpacity onPress={onShowPopupImage}>
+        <Input
+          inputContainerStyle={styles.input}
+          placeholder="Title"
+          value={title}
+          onChangeText={text => setTitle(text)}
+          leftIcon={
             <Icon
-              type="MaterialIcons"
-              name="add-a-photo"
-              size={40}
+              marginLeft={10}
+              type="feather"
+              name="book-open"
+              size={28}
               color="#8B8A8F"
             />
-            <Text style={{color: '#8B8A8F', fontSize: 13}}>
-              Add your best picture.
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
-      <Input
-        inputContainerStyle={styles.input}
-        placeholder="Title"
-        value={title}
-        onChangeText={text => setTitle(text)}
-        leftIcon={
-          <Icon
-            marginLeft={10}
-            type="feather"
-            name="book-open"
-            size={28}
-            color="#8B8A8F"
-          />
-        }
-      />
+          }
+        />
 
-      <TextInput
-        style={styles.textInput}
-        multiline
-        numberOfLines={4}
-        placeholder="Ingredients"
-        value={ingredients}
-        onChangeText={text => setIngredients(text)}
-        textAlign="left"
-        placeholderTextColor="#8B8A8F"
-      />
-      <TouchableOpacity onPress={onShowPopup} style={styles.category}>
-        <Text style={{fontSize: 18, color: '#8B8A8F', marginLeft: 15}}>
-          {selectedCategory ? selectedCategory.name : 'Category'}
-        </Text>
-      </TouchableOpacity>
-      <Popup
-        title="Category"
-        ref={target => (popupRef = target)}
-        onTouchOutside={onClosePopup}
-        data={popupList}
-        onSelect={item => onCategorySelect(item)}
-      />
-      <PopupImg
-        title="Select Image from..."
-        ref={target => (popupRefImage = target)}
-        onTouchOutside={onClosePopupImage}
-        data={popupListImage}
-      />
-      <ActionButton
-        title={
-          isLoading ? (
-            <ActivityIndicator size="small" color="#ffffff" />
+        <View style={styles.addPhoto}>
+          {picture ? (
+            <View>
+              <Image source={picture} style={styles.addPhotoImage} />
+              <TouchableOpacity
+                onPress={onShowPopupImage}
+                style={styles.changePhotoButton}>
+                <Text style={{color: 'white', fontSize: 13}}>Change Photo</Text>
+              </TouchableOpacity>
+            </View>
           ) : (
-            'UPDATE'
-          )
-        }
-        onPress={onUpdateButtonPress}
-      />
-      <Toast />
-    </View>
+            <TouchableOpacity onPress={onShowPopupImage}>
+              <Icon
+                type="MaterialIcons"
+                name="add-a-photo"
+                size={40}
+                color="#8B8A8F"
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        <TextInput
+          style={styles.textInput}
+          multiline
+          numberOfLines={4}
+          placeholder="Ingredients"
+          color="#8B8A8F"
+          value={ingredients}
+          onChangeText={text => setIngredients(text)}
+          textAlign="left"
+          placeholderTextColor="#8B8A8F"
+        />
+        <TouchableOpacity onPress={onShowPopup} style={styles.category}>
+          <Text style={{fontSize: 18, color: '#8B8A8F', marginLeft: 15}}>
+            {selectedCategory ? selectedCategory.name : 'Category'}
+          </Text>
+        </TouchableOpacity>
+        <Popup
+          title="Category"
+          ref={target => (popupRef = target)}
+          onTouchOutside={onClosePopup}
+          data={popupList}
+          onSelect={item => onCategorySelect(item)}
+        />
+        <PopupImg
+          title="Select Image from..."
+          ref={target => (popupRefImage = target)}
+          onTouchOutside={onClosePopupImage}
+          data={popupListImage}
+        />
+        <ActionButton
+          title={
+            isLoading ? (
+              <ActivityIndicator size="small" color="#ffffff" />
+            ) : (
+              'UPDATE'
+            )
+          }
+          onPress={onUpdateButtonPress}
+        />
+        <Toast />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
