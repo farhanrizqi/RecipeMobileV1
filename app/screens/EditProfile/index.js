@@ -1,4 +1,10 @@
-import {StyleSheet, View, ActivityIndicator} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import React, {useState} from 'react';
 import {updateProfile} from '../../store/action/menu';
 import {useDispatch, useSelector} from 'react-redux';
@@ -6,7 +12,7 @@ import {Text, Image} from '@rneui/base';
 import {Icon, Input} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
-import {Modal, ActionButton, PopupImg} from '../../components';
+import {ModalComponent, ActionButton, PopupImg} from '../../components';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const EditProfile = () => {
@@ -17,8 +23,16 @@ const EditProfile = () => {
   let popupRef = React.createRef();
   let popupRefImage = React.createRef();
 
-  const [username, setUsername] = useState(login.data.name);
-  const [picture, setPicture] = useState(login.data.photos);
+  console.log(login.data.data.user.name);
+  const [username, setUsername] = useState(
+    login.data.data?.user?.name || 'Username Error',
+  );
+  const [picture, setPicture] = useState(
+    login.data.data?.user?.photos || 'Picture Error',
+  );
+
+  console.log(username);
+  console.log(picture);
 
   const onShowPopup = () => {
     popupRef.show();
@@ -40,17 +54,23 @@ const EditProfile = () => {
     onShowPopup();
   };
 
-  const id = login.data.id;
+  const id = login.data.data?.user?.id;
+  console.log('ini picture: ', picture); // Check if 'picture' is defined
+  console.log('ini picture type: ', picture.type); // Check if 'picture.type' is defined
+  // console.log(picture.type.startsWith('image/'));
 
   const handleUpdateProfile = () => {
     const dataUser = new FormData();
     dataUser.append('name', username);
-    if (picture) {
+    if (picture && picture.type && picture.type.startsWith('image/')) {
       dataUser.append('photos', {
         uri: picture,
-        type: 'image/jpeg',
+        type: picture.type,
         name: 'user.jpg',
       });
+    } else {
+      alert('File yang diunggah harus berupa tipe gambar');
+      return;
     }
     onClosePopup();
 
@@ -129,76 +149,78 @@ const EditProfile = () => {
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.head}>
-        <Image source={{uri: picture}} style={styles.ImgProfile} />
-        <Text
-          style={{
-            fontSize: 15,
-            fontWeight: '800',
-            color: 'white',
-            marginTop: 10,
-            marginBottom: 20,
-          }}
-          onPress={onShowPopupImage}>
-          Change Picture
-        </Text>
-      </View>
-      <View style={styles.cover}>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: '800',
-            color: 'rgba(0, 0, 0, 0.70)',
-            marginTop: 30,
-            marginBottom: 20,
-            textAlign: 'center',
-          }}>
-          Change Username
-        </Text>
-        <Input
-          inputContainerStyle={styles.input}
-          placeholder="Username"
-          value={username}
-          onChangeText={text => setUsername(text)} // Mengubah state username
-          leftIcon={
-            <Icon
-              marginLeft={10}
-              type="feather"
-              name="user"
-              size={28}
-              color="rgba(239, 200, 26, 1)"
-            />
-          }
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.head}>
+          <Image source={{uri: picture}} style={styles.ImgProfile} />
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: '800',
+              color: 'white',
+              marginTop: 10,
+              marginBottom: 20,
+            }}
+            onPress={onShowPopupImage}>
+            Change Picture
+          </Text>
+        </View>
+        <View style={styles.cover}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: '800',
+              color: 'rgba(0, 0, 0, 0.70)',
+              marginTop: 30,
+              marginBottom: 20,
+              textAlign: 'center',
+            }}>
+            Change Username
+          </Text>
+          <Input
+            inputContainerStyle={styles.input}
+            placeholder="Username"
+            value={username}
+            onChangeText={text => setUsername(text)}
+            leftIcon={
+              <Icon
+                marginLeft={10}
+                type="feather"
+                name="user"
+                size={28}
+                color="rgba(239, 200, 26, 1)"
+              />
+            }
+          />
+          <ActionButton
+            title={
+              isLoading ? (
+                <ActivityIndicator size="small" color="#ffffff" />
+              ) : (
+                'Save Update'
+              )
+            }
+            onPress={handleChangesPress}
+          />
+        </View>
+        <Text style={{marginTop: 160}}>Recipe Mobile</Text>
+        <Text>V 1.0.0</Text>
+        <ModalComponent
+          title="Confirm"
+          message={`Are you sure to make these changes?`}
+          ref={target => (popupRef = target)}
+          onPress={handleUpdateProfile}
+          onTouchOutside={onClosePopup}
         />
-        <ActionButton
-          title={
-            isLoading ? (
-              <ActivityIndicator size="small" color="#ffffff" />
-            ) : (
-              'Save Update'
-            )
-          }
-          onPress={handleChangesPress}
+        <PopupImg
+          title="Select Image from..."
+          ref={target => (popupRefImage = target)}
+          onTouchOutside={onClosePopupImage}
+          data={popupListImage}
         />
-      </View>
-      <Text style={{marginTop: 160}}>Recipe Mobile</Text>
-      <Text>V 1.0.0</Text>
-      <Modal
-        title="Confirm"
-        message={`Are you sure to make these changes?`}
-        ref={target => (popupRef = target)}
-        onPress={handleUpdateProfile}
-        onTouchOutside={onClosePopup}
-      />
-      <PopupImg
-        title="Select Image from..."
-        ref={target => (popupRefImage = target)}
-        onTouchOutside={onClosePopupImage}
-        data={popupListImage}
-      />
-      <Toast />
-    </View>
+        <Toast />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -211,7 +233,7 @@ const styles = StyleSheet.create({
 
   head: {
     width: 395,
-    height: 308,
+    height: 300,
     backgroundColor: '#EEC302',
     position: 'absolute',
     justifyContent: 'center',
@@ -220,7 +242,7 @@ const styles = StyleSheet.create({
 
   cover: {
     width: 370,
-    height: 250,
+    height: '90%',
     backgroundColor: 'white',
     marginTop: 250,
     overflow: 'hidden',

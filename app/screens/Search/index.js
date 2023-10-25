@@ -14,15 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {getMenu} from '../../store/action/menu';
 
-const Items = ({
-  id,
-  img,
-  title,
-  category,
-  navigation,
-  author,
-  author_photos,
-}) => {
+const Items = ({id, img, title, category, navigation, author, photos}) => {
   return (
     <ScrollView>
       <View
@@ -67,12 +59,11 @@ const Items = ({
               marginTop: 15,
             }}>
             <Image
-              source={{uri: author_photos}}
+              source={{uri: photos}}
               style={{
                 height: 30,
                 width: 30,
                 borderRadius: 50,
-                backgroundColor: 'gray',
               }}
             />
             <Text
@@ -326,7 +317,7 @@ const Search = () => {
                 borderRadius: 10,
                 color: 'black',
               }}
-              placeholder="What are you cooking today?"
+              placeholder="What do you want to cook ?"
               value={searchMenu}
               onChangeText={handleSearchChange}
               lightTheme={true}

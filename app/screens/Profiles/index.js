@@ -37,8 +37,11 @@ const Profiles = () => {
     <View style={styles.primaryContainer}>
       {/* <StatusBar backgroundColor="#EEC302" barStyle="light-content" /> */}
       <View style={styles.overlay}>
-        <Image source={{uri: login.data.photos}} style={styles.image} />
-        <Text style={styles.username}>{login.data.name}</Text>
+        <Image
+          source={{uri: login.data.data.user.photos}}
+          style={styles.image}
+        />
+        <Text style={styles.username}>{login.data.data.user.name}</Text>
       </View>
       <View style={styles.profileMenu}>
         <ListItem onPress={() => navigation.push('EditProfile')}>
@@ -49,7 +52,9 @@ const Profiles = () => {
           <ListItem.Chevron />
         </ListItem>
         <ListItem
-          onPress={() => navigation.push('MyRecipe', {itemId: login.data.id})}>
+          onPress={() =>
+            navigation.push('MyRecipe', {itemId: login.data.data.user.id})
+          }>
           <Icon name="award" type="feather" color="#EEC302" />
           <ListItem.Content>
             <ListItem.Title>My Recipe</ListItem.Title>

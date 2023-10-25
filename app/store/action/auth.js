@@ -66,7 +66,7 @@ export const register = (data, navigation) => async dispatch => {
       text1: 'Registration Successful!',
     });
     setTimeout(() => {
-      navigation.replace('Loginn');
+      navigation.replace('Login');
     }, 2000);
   } catch (err) {
     console.log('err');

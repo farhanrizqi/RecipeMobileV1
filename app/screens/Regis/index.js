@@ -1,4 +1,11 @@
-import {StyleSheet, View, Dimensions, ImageBackground} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import ActionButton from '../../components/ActionButton';
 import {useNavigation} from '@react-navigation/native';
@@ -9,6 +16,7 @@ import Toast from 'react-native-toast-message';
 import {register} from '../../store/action/auth';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const Regis = () => {
   const navigation = useNavigation();
@@ -17,9 +25,9 @@ const Regis = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputData, setInputData] = useState({
     type: 'user',
-    username: '',
+    name: '',
     email: '',
-    password: '',
+    pass: '',
   });
 
   const handleLoginPress = () => {
@@ -35,7 +43,7 @@ const Regis = () => {
   };
 
   const handleSignin = () => {
-    navigation.navigate('LoginScreens');
+    navigation.navigate('Login');
   };
 
   const handleFocus = () => {
@@ -47,69 +55,74 @@ const Regis = () => {
   };
 
   return (
-    <View>
-      <View style={styles.container}>
-        <ImageBackground source={discover2Image} style={styles.overlay} />
-      </View>
-      <View style={styles.main}>
-        <Text style={styles.welcome}>Welcome !</Text>
-        <Text style={styles.login}>Register to Recipe App.</Text>
-      </View>
-      <View>
-        <Input
-          inputContainerStyle={styles.inputName}
-          placeholder="Your Name "
-          value={inputData.username}
-          onChangeText={text => setInputData({...inputData, username: text})}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          leftIcon={<Icon type="feather" name="user" size={16} color="black" />}
+    <ScrollView>
+      <SafeAreaView>
+        <View style={styles.main}>
+          <Text style={styles.welcome}>Welcome !</Text>
+          <Text style={styles.login}>Register to Recipe App.</Text>
+        </View>
+        <View>
+          <Input
+            inputContainerStyle={styles.inputName}
+            placeholder="Your Name "
+            value={inputData.name}
+            onChangeText={text => setInputData({...inputData, name: text})}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            leftIcon={
+              <Icon type="feather" name="user" size={16} color="black" />
+            }
+          />
+        </View>
+        <View>
+          <Input
+            inputContainerStyle={styles.inputEmail}
+            placeholder="Email Address "
+            value={inputData.email}
+            onChangeText={text => setInputData({...inputData, email: text})}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            leftIcon={
+              <Icon type="feather" name="user" size={16} color="black" />
+            }
+          />
+        </View>
+        <View>
+          <Input
+            inputContainerStyle={styles.inputPass}
+            placeholder="Password "
+            value={inputData.pass}
+            onChangeText={text => setInputData({...inputData, pass: text})}
+            leftIcon={
+              <Icon type="feather" name="lock" size={16} color="black" />
+            }
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={styles.forgotCover}>
+          <Text style={styles.forgot}>Forgot Password?</Text>
+        </View>
+        <ActionButton
+          title={
+            isLoading ? (
+              <ActivityIndicator size="small" color="#ffffff" />
+            ) : (
+              'REGISTER'
+            )
+          }
+          onPress={handleLoginPress}
         />
-      </View>
-      <View>
-        <Input
-          inputContainerStyle={styles.inputEmail}
-          placeholder="Email Address "
-          value={inputData.email}
-          onChangeText={text => setInputData({...inputData, email: text})}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          leftIcon={<Icon type="feather" name="user" size={16} color="black" />}
-        />
-      </View>
-      <View>
-        <Input
-          inputContainerStyle={styles.inputPass}
-          placeholder="Password "
-          value={inputData.password}
-          onChangeText={text => setInputData({...inputData, password: text})}
-          leftIcon={<Icon type="feather" name="lock" size={16} color="black" />}
-          secureTextEntry={true}
-        />
-      </View>
-      <View style={styles.forgotCover}>
-        <Text style={styles.forgot}>Forgot Password?</Text>
-      </View>
-      <ActionButton
-        title={
-          isLoading ? (
-            <ActivityIndicator size="small" color="#ffffff" />
-          ) : (
-            'REGISTER'
-          )
-        }
-        onPress={handleLoginPress}
-      />
-      <View style={styles.word}>
-        <Text>
-          <Text style={styles.dont}>Have an account? </Text>
-          <Text style={styles.signup} onPress={handleSignin}>
-            Sign In
+        <View style={styles.word}>
+          <Text>
+            <Text style={styles.dont}>Have an account? </Text>
+            <Text style={styles.signup} onPress={handleSignin}>
+              Sign In
+            </Text>
           </Text>
-        </Text>
-      </View>
-      <Toast />
-    </View>
+        </View>
+        <Toast />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -118,16 +131,12 @@ export default Regis;
 const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
-  },
-  overlay: {
-    width: '100%',
-    height: '50%',
-    backgroundColor: '#EEC302',
+    justifyContent: 'center',
   },
 
   container: {
     alignItems: 'center',
-    height: 200,
+    height: screenHeight,
     borderBottomLeftRadius: 10,
   },
 
@@ -156,18 +165,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  overlay: {
-    // ...StyleSheet.absoluteFillObject,
-    width: '100%',
-    backgroundColor: 'rgba(239, 200, 26, 0.5)',
-    borderBottomLeftRadius: 22,
-    borderBottomRightRadius: 22,
-  },
-
   logo: {
-    // ...StyleSheet.absoluteFillObject,
-    // width: 100,
-    // height: 100,
+    ...StyleSheet.absoluteFillObject,
+    width: 100,
+    height: 100,
     marginTop: 50,
   },
 

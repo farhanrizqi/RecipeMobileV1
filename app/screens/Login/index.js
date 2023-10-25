@@ -5,6 +5,8 @@ import {
   View,
   ImageBackground,
   ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Input, Text, Icon} from '@rneui/themed';
@@ -44,7 +46,7 @@ const Login = () => {
   };
 
   const handleSignup = () => {
-    navigation.navigate('RegisScreen');
+    navigation.navigate('Regis');
   };
 
   const handleFocus = () => {
@@ -56,57 +58,63 @@ const Login = () => {
   };
 
   return (
-    <View>
-      <View style={styles.container}>
-        <ImageBackground source={discover2Image} style={styles.overlay} />
-      </View>
-      <View style={styles.main}>
-        <Text style={styles.welcome}>Welcome !</Text>
-        <Text style={styles.login}>Log in to your exiting account.</Text>
-      </View>
-      <View>
-        <Input
-          inputContainerStyle={styles.inputEmail}
-          placeholder="Email Address "
-          value={inputData.email}
-          onChangeText={text => setInputData({...inputData, email: text})}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          leftIcon={<Icon type="feather" name="user" size={16} color="black" />}
+    <ScrollView>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <ImageBackground source={discover2Image} style={styles.overlay} />
+        </View>
+        <View style={styles.main}>
+          <Text style={styles.welcome}>Welcome !</Text>
+          <Text style={styles.login}>Log in to your exiting account.</Text>
+        </View>
+        <View>
+          <Input
+            inputContainerStyle={styles.inputEmail}
+            placeholder="Email Address "
+            value={inputData.email}
+            onChangeText={text => setInputData({...inputData, email: text})}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            leftIcon={
+              <Icon type="feather" name="user" size={16} color="black" />
+            }
+          />
+        </View>
+        <View>
+          <Input
+            inputContainerStyle={styles.inputPass}
+            placeholder="Password "
+            value={inputData.pass}
+            onChangeText={text => setInputData({...inputData, pass: text})}
+            leftIcon={
+              <Icon type="feather" name="lock" size={16} color="black" />
+            }
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={styles.forgotCover}>
+          <Text style={styles.forgot}>Forgot Password?</Text>
+        </View>
+        <ActionButton
+          title={
+            isLoading ? (
+              <ActivityIndicator size="small" color="#ffffff" />
+            ) : (
+              'LOGIN'
+            )
+          }
+          onPress={handleLoginPress}
         />
-      </View>
-      <View>
-        <Input
-          inputContainerStyle={styles.inputPass}
-          placeholder="Password "
-          value={inputData.pass}
-          onChangeText={text => setInputData({...inputData, pass: text})}
-          leftIcon={<Icon type="feather" name="lock" size={16} color="black" />}
-          secureTextEntry={true}
-        />
-      </View>
-      <View style={styles.forgotCover}>
-        <Text style={styles.forgot}>Forgot Password?</Text>
-      </View>
-      <ActionButton
-        title={
-          isLoading ? (
-            <ActivityIndicator size="small" color="#ffffff" />
-          ) : (
-            'LOGIN'
-          )
-        }
-        onPress={handleLoginPress}
-      />
-      <View style={styles.word}>
-        <Text>
-          <Text style={styles.dont}>Don’t have an account? </Text>
-          <Text style={styles.signup} onPress={handleSignup}>
-            Sign Up
+        <View style={styles.word}>
+          <Text>
+            <Text style={styles.dont}>Don’t have an account? </Text>
+            <Text style={styles.signup} onPress={handleSignup}>
+              Sign Up
+            </Text>
           </Text>
-        </Text>
-      </View>
-    </View>
+        </View>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 

@@ -22,6 +22,7 @@ export const getMenu = () => async dispatch => {
       {headers},
     );
 
+    console.log(response);
     if (response.data) {
       dispatch({type: 'GET_MENU_SUCCESS', payload: response.data});
       console.log('Success');
@@ -322,7 +323,7 @@ export const updateMenu = (id, data) => async dispatch => {
   }
 };
 
-export const updateProfile = (id, data) => async dispatch => {
+export const updateProfile = (id, dataUser) => async dispatch => {
   try {
     const token = await AsyncStorage.getItem('token');
     if (!token) {
@@ -338,7 +339,7 @@ export const updateProfile = (id, data) => async dispatch => {
 
     const result = await axios.put(
       `https://kind-gray-hippopotamus-tie.cyclic.app/users/${id}`,
-      data,
+      dataUser,
       {
         headers,
       },
@@ -377,7 +378,7 @@ export const updateProfile = (id, data) => async dispatch => {
       });
       console.log(error);
       console.log(id);
-      console.log(data);
+      console.log(dataUser);
       // console.log(token);
       Toast.show({
         type: 'error',
