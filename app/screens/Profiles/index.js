@@ -61,10 +61,10 @@ const Profiles = () => {
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-        <ListItem onPress={() => navigation.push('Save')}>
+        <ListItem onPress={() => navigation.push('Bookmark')}>
           <Icon name="bookmark" type="feather" color="#EEC302" />
           <ListItem.Content>
-            <ListItem.Title>Saved Recipe</ListItem.Title>
+            <ListItem.Title>Bookmarked Recipe</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -78,7 +78,9 @@ const Profiles = () => {
         <ListItem>
           <Icon name="log-out" type="feather" color="red" />
           <ListItem.Content>
-            <ListItem.Title onPress={onShowPopup}>Logout</ListItem.Title>
+            <ListItem.Title onPress={onShowPopup} style={{color: 'red'}}>
+              Logout
+            </ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>

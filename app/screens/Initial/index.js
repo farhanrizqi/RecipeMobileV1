@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
 import React from 'react';
-import start1 from '../../assets/img/start1.jpg';
+import start1 from '../../assets/img/start2.jpg';
 // import iconStart from '../assets/img/home.png';
 import ActionButton from '../../components/ActionButton';
 import LinearGradient from 'react-native-linear-gradient';

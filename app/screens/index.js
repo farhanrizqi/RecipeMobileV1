@@ -8,7 +8,7 @@ import DetailMenu from './DetailMenu';
 import MyRecipe from './MyRecipe';
 import EditMenu from './EditMenu';
 import EditProfile from './EditProfile';
-import Save from './Save';
+import Bookmark from './Bookmark';
 import Like from './Like';
 import Initial from './Initial';
 
@@ -23,7 +23,7 @@ export {
   MyRecipe,
   EditMenu,
   EditProfile,
-  Save,
+  Bookmark,
   Like,
   Initial,
 };

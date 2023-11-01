@@ -3,7 +3,7 @@ import React from 'react';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-const Save = () => {
+const Bookmark = () => {
   const navigation = useNavigation();
   return (
     <View
@@ -25,7 +25,7 @@ const Save = () => {
         <Icon
           type="feather"
           name="chevron-left"
-          size={60}
+          size={35}
           color="#EFC81A"
           // marginLeft={10}
           onPress={() => navigation.goBack()}
@@ -35,18 +35,17 @@ const Save = () => {
             fontSize: 30,
             color: '#EFC81A',
             fontWeight: '700',
-            marginRight: 70,
           }}>
-          Saved Recipe
+          Bookmarked Recipe
         </Text>
+        <Text
+          style={{fontSize: 30, color: '#EFC81A', fontWeight: '700'}}></Text>
       </View>
       <Text style={{textAlign: 'center', marginBottom: 350}}>
-        No saved recipe
+        No bookmarked recipe
       </Text>
     </View>
   );
 };
 
-export default Save;
-
-const styles = StyleSheet.create({});
+export default Bookmark;

@@ -198,9 +198,8 @@ const MyRecipe = () => {
           }}>
           My Recipe
         </Text>
-        <Text style={{fontSize: 30, color: '#EFC81A', fontWeight: '700'}}>
-          {/* {data.data ? data.data.length : 0} */}
-        </Text>
+        <Text
+          style={{fontSize: 30, color: '#EFC81A', fontWeight: '700'}}></Text>
       </View>
 
       {isError ? (

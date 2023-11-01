@@ -124,6 +124,7 @@ export const getMenuUsers = id => async dispatch => {
     );
 
     if (response.data) {
+      console.log('ini response data: ', response);
       dispatch({type: 'GET_MENU_USERS_SUCCESS', payload: response.data});
       console.log('Success');
     } else {
@@ -262,7 +263,7 @@ export const addRecipe = dataRecipe => async dispatch => {
   }
 };
 
-export const updateMenu = (id, data) => async dispatch => {
+export const putRecipe = (id, data) => async dispatch => {
   try {
     const token = await AsyncStorage.getItem('token');
     if (!token) {
@@ -312,12 +313,12 @@ export const updateMenu = (id, data) => async dispatch => {
     } else {
       dispatch({
         type: 'PUT_RECIPE_FAILED',
-        payload: error.response,
+        payload: error.message ? error.message : 'Unknown Error',
       });
-      console.log(error);
+      console.log('Error reason : ', error);
       Toast.show({
         type: 'error',
-        text1: error.response.data.message,
+        text1: error.message,
       });
     }
   }

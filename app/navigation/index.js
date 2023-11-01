@@ -17,7 +17,7 @@ import {
   MyRecipe,
   Profiles,
   Regis,
-  Save,
+  Bookmark,
   Search,
 } from '../screens';
 import {
@@ -149,8 +149,8 @@ const Router = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name="Save"
-              component={Save}
+              name="Bookmark"
+              component={Bookmark}
               options={{headerShown: false}}
             />
             <Stack.Screen

@@ -12,7 +12,7 @@ import {Input, Icon, Text, Image} from '@rneui/themed';
 import {ActionButton, Popup, PopupImg} from '../../components';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateMenu, getMenuDetails, getMenu} from '../../store/action/menu';
+import {putRecipe, getMenuDetails, getMenu} from '../../store/action/menu';
 import Toast from 'react-native-toast-message';
 
 const EditMenu = ({route, navigation}) => {
@@ -20,10 +20,11 @@ const EditMenu = ({route, navigation}) => {
   let popupRef = React.createRef();
   let popupRefImage = React.createRef();
 
-  const {getMenuByID, putMenu} = useSelector(state => state);
-  const {data: dataMenu, isLoading} = putMenu;
-  const {data} = getMenuByID;
+  const {data: dataMenu, isLoading} = useSelector(state => state.putMenu);
+  const {data} = useSelector(state => state.getMenuByID);
+  // console.log('ini data id: ', data);
   const itemId = route.params?.itemId;
+  // console.log('ini itemId: ', itemId);
 
   const [picture, setPicture] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -35,18 +36,18 @@ const EditMenu = ({route, navigation}) => {
   }, [dispatch, itemId]);
 
   useEffect(() => {
-    if (data) {
-      setTitle(data.title || '');
-      setIngredients(data.ingredients || '');
+    if (data && data.data && data.data.length > 0) {
+      // console.log('debugging test: ', data.data[0]);
+      const menuData = data.data[0];
+      setTitle(menuData.title || '');
+      setIngredients(menuData.ingredients || '');
       setSelectedCategory({
-        id: data.category_id,
-        name: data.category,
+        id: menuData.category_id,
+        name: menuData.category,
       });
-      setPicture(data.img ? {uri: data.img} : null);
+      setPicture(menuData.img ? {uri: menuData.img} : null);
     }
   }, [data]);
-
-  console.log('data : ', data);
 
   const onShowPopup = () => {
     popupRef.show();
@@ -157,7 +158,7 @@ const EditMenu = ({route, navigation}) => {
     if (!title || !selectedCategory || !picture || !ingredients) {
       Toast.show({
         type: 'error',
-        text1: 'No Data Added',
+        text1: 'Complete your recipe data',
         text2: 'Please enter the recipe data first',
       });
       return;
@@ -189,7 +190,7 @@ const EditMenu = ({route, navigation}) => {
       });
     }
 
-    dispatch(updateMenu(itemId, dataRecipe));
+    dispatch(putRecipe(itemId, dataRecipe));
     setTimeout(() => {
       navigation.navigate('MyRecipe');
     }, 3000);

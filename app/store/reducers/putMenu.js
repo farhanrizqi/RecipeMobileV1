@@ -11,13 +11,16 @@ const putMenu = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        isError: false, // Set isError to false to clear previous error
+        messageError: '', // Clear previous error message
       };
     case 'PUT_RECIPE_SUCCESS':
       return {
         ...state,
         data: action.payload,
         isLoading: false,
-        isError: false,
+        isError: false, // Set isError to false when successful
+        messageError: '', // Clear previous error message
       };
     case 'PUT_RECIPE_FAILED':
       return {
@@ -25,12 +28,10 @@ const putMenu = (state = initialState, action) => {
         data: null,
         isLoading: false,
         isError: true,
-        messageError: action.payload,
+        messageError: action.payload, // Set error message from payload
       };
     default:
-      return {
-        state,
-      };
+      return state; // Return the current state if no action type matches
   }
 };
 

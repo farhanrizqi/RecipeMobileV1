@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
@@ -25,9 +25,8 @@ const Like = () => {
         <Icon
           type="feather"
           name="chevron-left"
-          size={60}
+          size={35}
           color="#EFC81A"
-          // marginLeft={10}
           onPress={() => navigation.goBack()}
         />
         <Text
@@ -35,10 +34,13 @@ const Like = () => {
             fontSize: 30,
             color: '#EFC81A',
             fontWeight: '700',
-            marginRight: 70,
+            // marginRight: 70,
+            textAlignVertical: 'center',
           }}>
           Liked Recipe
         </Text>
+        <Text
+          style={{fontSize: 30, color: '#EFC81A', fontWeight: '700'}}></Text>
       </View>
       <Text style={{textAlign: 'center', marginBottom: 350}}>
         No liked recipe
@@ -49,4 +51,15 @@ const Like = () => {
 
 export default Like;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    width: Dimensions.get('window').width,
+    // width: '100%',
+  },
+
+  content: {
+    // backgroundColor: 'grey',
+    width: '100%',
+  },
+});

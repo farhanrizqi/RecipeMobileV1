@@ -23,12 +23,15 @@ const EditProfile = () => {
   let popupRef = React.createRef();
   let popupRefImage = React.createRef();
 
-  console.log(login.data.data.user.name);
+  console.log(login.data.data.user);
   const [username, setUsername] = useState(
     login.data.data?.user?.name || 'Username Error',
   );
   const [picture, setPicture] = useState(
     login.data.data?.user?.photos || 'Picture Error',
+  );
+  const [email, setEmail] = useState(
+    login.data.data?.user?.email || 'Email Error',
   );
 
   console.log(username);
@@ -55,14 +58,15 @@ const EditProfile = () => {
   };
 
   const id = login.data.data?.user?.id;
-  console.log('ini picture: ', picture); // Check if 'picture' is defined
-  console.log('ini picture type: ', picture.type); // Check if 'picture.type' is defined
-  // console.log(picture.type.startsWith('image/'));
 
   const handleUpdateProfile = () => {
     const dataUser = new FormData();
     dataUser.append('name', username);
     if (picture && picture.type && picture.type.startsWith('image/')) {
+      console.log('ini picture: ', picture); // Check if 'picture' is defined
+      console.log('ini picture type: ', picture.type); // Check if 'picture.type' is defined
+      console.log(picture.type.startsWith('image/'));
+
       dataUser.append('photos', {
         uri: picture,
         type: picture.type,
@@ -175,7 +179,7 @@ const EditProfile = () => {
               marginBottom: 20,
               textAlign: 'center',
             }}>
-            Change Username
+            Change your Profile
           </Text>
           <Input
             inputContainerStyle={styles.input}
@@ -187,6 +191,21 @@ const EditProfile = () => {
                 marginLeft={10}
                 type="feather"
                 name="user"
+                size={28}
+                color="rgba(239, 200, 26, 1)"
+              />
+            }
+          />
+          <Input
+            inputContainerStyle={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
+            leftIcon={
+              <Icon
+                marginLeft={10}
+                type="feather"
+                name="mail"
                 size={28}
                 color="rgba(239, 200, 26, 1)"
               />
