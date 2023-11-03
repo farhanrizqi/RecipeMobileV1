@@ -232,7 +232,7 @@ const AddMenu = () => {
         <View style={styles.addPhoto}>
           {picture ? (
             <View>
-              <Image source={{uri: picture.uri}} style={styles.addPhotoImage} />
+              <Image source={picture} style={styles.addPhotoImage} />
               <TouchableOpacity
                 onPress={onShowPopupImage}
                 style={styles.changePhotoButton}>
@@ -337,6 +337,7 @@ const styles = StyleSheet.create({
   },
 
   addPhoto: {
+    width: 328,
     height: 200,
     borderWidth: 1,
     borderColor: '#8B8A8F',
@@ -348,6 +349,7 @@ const styles = StyleSheet.create({
   },
 
   addPhotoImage: {
+    width: 328,
     height: 200,
     borderRadius: 10,
   },

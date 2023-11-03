@@ -287,7 +287,16 @@ const EditMenu = ({route, navigation}) => {
           onTouchOutside={onClosePopupImage}
           data={popupListImage}
         />
-        <ActionButton title={'UPDATE'} onPress={onUpdateButtonPress} />
+        <ActionButton
+          title={
+            isLoading ? (
+              <ActivityIndicator size="small" color="#ffffff" />
+            ) : (
+              'UPDATE'
+            )
+          }
+          onPress={onUpdateButtonPress}
+        />
         <Toast />
       </SafeAreaView>
     </ScrollView>
