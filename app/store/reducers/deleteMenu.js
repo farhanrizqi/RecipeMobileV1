@@ -28,9 +28,7 @@ const deleteMenu = (state = initialState, action) => {
         messageError: action.payload,
       };
     default:
-      return {
-        state,
-      };
+      return state;
   }
 };
 

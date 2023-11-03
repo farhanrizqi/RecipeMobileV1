@@ -30,6 +30,7 @@ const EditMenu = ({route, navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
+  const [previousPictureUri, setPreviousPictureUri] = useState(null);
 
   useEffect(() => {
     dispatch(getMenuDetails(itemId));
@@ -45,7 +46,9 @@ const EditMenu = ({route, navigation}) => {
         id: menuData.category_id,
         name: menuData.category,
       });
-      setPicture(menuData.img ? {uri: menuData.img} : null);
+      const imgUri = menuData.img ? menuData.img : null;
+      setPicture({uri: imgUri}); // Set the current picture
+      setPreviousPictureUri(imgUri); // Set the previous picture URI
     }
   }, [data]);
 
@@ -154,8 +157,12 @@ const EditMenu = ({route, navigation}) => {
     },
   ];
 
+  useEffect(() => {
+    console.log('Picture state updated:', picture);
+  }, [picture]);
+
   const onUpdateButtonPress = async () => {
-    if (!title || !selectedCategory || !picture || !ingredients) {
+    if (!title || !selectedCategory || !ingredients) {
       Toast.show({
         type: 'error',
         text1: 'Complete your recipe data',
@@ -182,7 +189,8 @@ const EditMenu = ({route, navigation}) => {
       dataRecipe.append('category_id', parseInt(selectedCategory.id));
     }
 
-    if (picture) {
+    // Check if the picture has changed
+    if (picture && picture.uri !== previousPictureUri) {
       dataRecipe.append('img', {
         uri: picture.uri,
         type: picture.type,
@@ -279,16 +287,7 @@ const EditMenu = ({route, navigation}) => {
           onTouchOutside={onClosePopupImage}
           data={popupListImage}
         />
-        <ActionButton
-          title={
-            isLoading ? (
-              <ActivityIndicator size="small" color="#ffffff" />
-            ) : (
-              'UPDATE'
-            )
-          }
-          onPress={onUpdateButtonPress}
-        />
+        <ActionButton title={'UPDATE'} onPress={onUpdateButtonPress} />
         <Toast />
       </SafeAreaView>
     </ScrollView>

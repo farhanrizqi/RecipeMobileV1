@@ -22,7 +22,7 @@ export const getMenu = () => async dispatch => {
       {headers},
     );
 
-    console.log(response);
+    console.log('ini response get menu data: ', response);
     if (response.data) {
       dispatch({type: 'GET_MENU_SUCCESS', payload: response.data});
       console.log('Success');
@@ -123,12 +123,12 @@ export const getMenuUsers = id => async dispatch => {
       },
     );
 
-    if (response.data) {
+    if (response.status === 200) {
       console.log('ini response data: ', response);
       dispatch({type: 'GET_MENU_USERS_SUCCESS', payload: response.data});
       console.log('Success');
     } else {
-      console.log('Invalid response data:', response.data);
+      console.log('Invalid response data:', response.data.error.message);
     }
   } catch (err) {
     console.error('Error:', err);
@@ -148,7 +148,7 @@ export const getMenuUsers = id => async dispatch => {
     } else {
       dispatch({
         type: 'GET_MENU_USERS_ERROR',
-        payload: err.response.data.message,
+        payload: err.response.data.error.message,
       });
     }
   }
@@ -270,10 +270,14 @@ export const putRecipe = (id, data) => async dispatch => {
       throw new Error('Token not found in AsyncStorage');
     }
 
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
-    };
+    // const header = {
+    //   Authorization: `Bearer ${token}`,
+    //   'Content-Type': 'multipart/form-data',
+    //   Accept: 'application/json',
+    // };
+
+    // const dataRecipe = new FormData();
+    // dataRecipe.append('title', 'tes');
 
     dispatch({type: 'PUT_RECIPE_REQUEST'});
 
@@ -281,7 +285,11 @@ export const putRecipe = (id, data) => async dispatch => {
       `https://kind-gray-hippopotamus-tie.cyclic.app/recipe/${id}`,
       data,
       {
-        headers,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+          Accept: 'application/json',
+        },
       },
     );
     console.log('result', result);

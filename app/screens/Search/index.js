@@ -16,7 +16,7 @@ import {getMenu} from '../../store/action/menu';
 
 const Items = ({id, img, title, category, navigation, author, photos}) => {
   return (
-    <ScrollView>
+    <SafeAreaView>
       <View
         style={{
           flexDirection: 'row',
@@ -78,7 +78,7 @@ const Items = ({id, img, title, category, navigation, author, photos}) => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -245,31 +245,31 @@ const Search = () => {
     }
   };
 
-  const filterRecipes = (searchText, category) => {
-    if (!searchText) {
-      if (category === 'All') {
-        setRecipe(data.data.slice(0, itemsPerPage));
-      } else {
-        const filteredData = data.data.filter(
-          item => item.category.toLowerCase() === category.toLowerCase(),
-        );
-        setRecipe(filteredData.slice(0, itemsPerPage));
-      }
-    } else {
-      const filteredData = data.data.filter(
-        item =>
-          item.title.toLowerCase().includes(searchText.toLowerCase()) &&
-          (category === 'All' ||
-            item.category.toLowerCase() === category.toLowerCase()),
-      );
+  // const filterRecipes = (searchText, category) => {
+  //   if (!searchText) {
+  //     if (category === 'All') {
+  //       setRecipe(data.data.slice(0, itemsPerPage));
+  //     } else {
+  //       const filteredData = data.data.filter(
+  //         item => item.category.toLowerCase() === category.toLowerCase(),
+  //       );
+  //       setRecipe(filteredData.slice(0, itemsPerPage));
+  //     }
+  //   } else {
+  //     const filteredData = data.data.filter(
+  //       item =>
+  //         item.title.toLowerCase().includes(searchText.toLowerCase()) &&
+  //         (category === 'All' ||
+  //           item.category.toLowerCase() === category.toLowerCase()),
+  //     );
 
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const paginatedData = filteredData.slice(startIndex, endIndex);
+  //     const startIndex = (currentPage - 1) * itemsPerPage;
+  //     const endIndex = startIndex + itemsPerPage;
+  //     const paginatedData = filteredData.slice(startIndex, endIndex);
 
-      setRecipe(paginatedData);
-    }
-  };
+  //     setRecipe(paginatedData);
+  //   }
+  // };
 
   const countFilteredItems = () => {
     let filteredData = filteredRecipes;
@@ -289,129 +289,120 @@ const Search = () => {
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  console.log(recipe);
+  // console.log(recipe);
 
   return (
-    <ScrollView>
-      <SafeAreaView>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'white',
-          }}>
-          <View style={styles.containerUtility}>
-            <SearchBar
-              inputContainerStyle={{
-                backgroundColor: '#EFEFEF',
-                borderColor: 'EFEFEF',
-                borderRadius: 10,
-                color: 'black',
-              }}
-              containerStyle={{
-                backgroundColor: '#EFEFEF',
-                padding: 0,
-                fontSize: 16,
-                backgroundColor: '#F5F5F5',
-                width: '100%',
-                marginTop: 20,
-                borderRadius: 10,
-                color: 'black',
-              }}
-              placeholder="What do you want to cook ?"
-              value={searchMenu}
-              onChangeText={handleSearchChange}
-              lightTheme={true}
-              showCancel={true}
-            />
-            <ScrollView
-              style={styles.filter}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}>
-              <TouchableOpacity
-                style={[
-                  styles.categoryButton,
-                  selectedCategory === 'All' && styles.selectedCategoryButton,
-                ]}
-                onPress={() => handleCategoryChange('All')}>
-                <Text style={styles.categoryButtonText}>All</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.categoryButton,
-                  selectedCategory === 'Appetizers' &&
-                    styles.selectedCategoryButton,
-                ]}
-                onPress={() => handleCategoryChange('Appetizers')}>
-                <Text style={styles.categoryButtonText}>Appetizers</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.categoryButton,
-                  selectedCategory === 'Main Course' &&
-                    styles.selectedCategoryButton,
-                ]}
-                onPress={() => handleCategoryChange('Main Course')}>
-                <Text style={styles.categoryButtonText}>Main Course</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.categoryButton,
-                  selectedCategory === 'Dessert' &&
-                    styles.selectedCategoryButton,
-                ]}
-                onPress={() => handleCategoryChange('Dessert')}>
-                <Text style={styles.categoryButtonText}>Dessert</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-          <View style={{marginBottom: 200}}>
-            <FlatList
-              data={recipe}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
-            <View style={styles.pagination}>
-              <TouchableOpacity
-                onPress={goToPreviousPage}
-                style={[
-                  styles.paginationButton,
-                  currentPage === 1 && styles.disabledPaginationButton,
-                ]}
-                disabled={currentPage === 1}>
-                <Icon
-                  type="feather"
-                  name="chevron-left"
-                  size={30}
-                  color="white"
-                />
-              </TouchableOpacity>
-              <Text>{`${Math.min(
-                (currentPage - 1) * itemsPerPage + 1,
-                totalItems,
-              )}-${Math.min(
-                currentPage * itemsPerPage,
-                totalItems,
-              )} of ${totalItems}`}</Text>
-              <TouchableOpacity
-                onPress={goToNextPage}
-                style={[
-                  styles.paginationButton,
-                  currentPage * itemsPerPage >= totalItems &&
-                    styles.disabledPaginationButton,
-                ]}
-                disabled={currentPage * itemsPerPage >= totalItems}>
-                <Icon
-                  type="feather"
-                  name="chevron-right"
-                  size={30}
-                  color="white"
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        marginBottom: 200,
+      }}>
+      <View
+        style={{
+          // flex: 1,
+          backgroundColor: 'white',
+        }}>
+        <View style={styles.containerUtility}>
+          <SearchBar
+            inputContainerStyle={{
+              backgroundColor: '#EFEFEF',
+              borderColor: 'EFEFEF',
+              borderRadius: 10,
+              color: 'black',
+            }}
+            containerStyle={{
+              backgroundColor: '#EFEFEF',
+              padding: 0,
+              fontSize: 16,
+              backgroundColor: '#F5F5F5',
+              width: '100%',
+              marginTop: 20,
+              borderRadius: 10,
+              color: 'black',
+            }}
+            placeholder="What do you want to cook ?"
+            value={searchMenu}
+            onChangeText={handleSearchChange}
+            lightTheme={true}
+            showCancel={true}
+          />
+          <ScrollView
+            style={styles.filter}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
+            <TouchableOpacity
+              style={[
+                styles.categoryButton,
+                selectedCategory === 'All' && styles.selectedCategoryButton,
+              ]}
+              onPress={() => handleCategoryChange('All')}>
+              <Text style={styles.categoryButtonText}>All</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.categoryButton,
+                selectedCategory === 'Appetizer' &&
+                  styles.selectedCategoryButton,
+              ]}
+              onPress={() => handleCategoryChange('Appetizer')}>
+              <Text style={styles.categoryButtonText}>Appetizer</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.categoryButton,
+                selectedCategory === 'Main Course' &&
+                  styles.selectedCategoryButton,
+              ]}
+              onPress={() => handleCategoryChange('Main Course')}>
+              <Text style={styles.categoryButtonText}>Main Course</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.categoryButton,
+                selectedCategory === 'Dessert' && styles.selectedCategoryButton,
+              ]}
+              onPress={() => handleCategoryChange('Dessert')}>
+              <Text style={styles.categoryButtonText}>Dessert</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+
+        <FlatList
+          style={{}}
+          data={recipe}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+        <View style={styles.pagination}>
+          <TouchableOpacity
+            onPress={goToPreviousPage}
+            style={[
+              styles.paginationButton,
+              currentPage === 1 && styles.disabledPaginationButton,
+            ]}
+            disabled={currentPage === 1}>
+            <Icon type="feather" name="chevron-left" size={30} color="white" />
+          </TouchableOpacity>
+          <Text>{`${Math.min(
+            (currentPage - 1) * itemsPerPage + 1,
+            totalItems,
+          )}-${Math.min(
+            currentPage * itemsPerPage,
+            totalItems,
+          )} of ${totalItems}`}</Text>
+          <TouchableOpacity
+            onPress={goToNextPage}
+            style={[
+              styles.paginationButton,
+              currentPage * itemsPerPage >= totalItems &&
+                styles.disabledPaginationButton,
+            ]}
+            disabled={currentPage * itemsPerPage >= totalItems}>
+            <Icon type="feather" name="chevron-right" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 

@@ -36,7 +36,7 @@ const Items = ({id, img, title, category, author}) => {
       .then(() => {
         onClosePopup();
         dispatch(getMenuUsers(login.data.data.user.id));
-        console.log(login.data);
+        // console.log(login.data);
         dispatch(getMenu());
       })
       .catch(error => {
@@ -49,7 +49,7 @@ const Items = ({id, img, title, category, author}) => {
   console.log('Data in Items: ', {id, img, title, category, author});
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={{width: Dimensions.get('window').width}}>
         <TouchableOpacity
           onPress={() => navigation.push('DetailMenu', {itemId: id})}
@@ -149,7 +149,7 @@ const Items = ({id, img, title, category, author}) => {
           onPress={handleDelete}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -158,7 +158,7 @@ const MyRecipe = () => {
   const navigation = useNavigation();
   const login = useSelector(state => state.login);
   const getMenuByUsers = useSelector(state => state.getMenuByUsers);
-  const {data, isSuccess, isError} = getMenuByUsers;
+  const {data, isLoading, isError} = getMenuByUsers;
 
   let deviceWidth = Dimensions.get('window').width;
 
@@ -202,33 +202,50 @@ const MyRecipe = () => {
           style={{fontSize: 30, color: '#EFC81A', fontWeight: '700'}}></Text>
       </View>
 
-      {isError ? (
-        <Text style={{textAlign: 'center', marginTop: 300}}>
-          Recipe not found
-        </Text>
+      {isLoading ? (
+        <View style={styles.containerAdd}>
+          <Text style={{textAlign: 'center', marginTop: 200, color: 'black'}}>
+            Loading...
+          </Text>
+        </View>
+      ) : isError ? (
+        <View style={styles.containerAdd}>
+          <Text style={{textAlign: 'center', marginTop: 200, color: 'black'}}>
+            Error: {getMenuByUsers.messageError}
+          </Text>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => navigation.navigate('AddMenu')}>
+            <Text style={styles.addButtonText}>Add Menu</Text>
+          </TouchableOpacity>
+        </View>
+      ) : !data || (data.data && data.data.length === 0) ? (
+        <View style={styles.containerAdd}>
+          <Text style={{textAlign: 'center', marginTop: 200, color: 'black'}}>
+            Recipe not found
+          </Text>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => navigation.navigate('AddMenu')}>
+            <Text style={styles.addButtonText}>Add Menu</Text>
+          </TouchableOpacity>
+        </View>
       ) : (
         <View style={styles.content}>
-          {data.data && data.data.length > 0 ? (
-            <FlatList
-              marginBottom={200}
-              data={data.data}
-              renderItem={({item}) => (
-                <Items
-                  id={item.id}
-                  img={item.img}
-                  title={item.title}
-                  category={item.category}
-                  navigation={navigation}
-                  author={item.author}
-                  // photos={item.author_photos}
-                />
-              )}
-            />
-          ) : (
-            <Text style={{textAlign: 'center', marginTop: 300}}>
-              Recipe not found
-            </Text>
-          )}
+          <FlatList
+            marginBottom={200}
+            data={data.data}
+            renderItem={({item}) => (
+              <Items
+                id={item.id}
+                img={item.img}
+                title={item.title}
+                category={item.category}
+                navigation={navigation}
+                author={item.author}
+              />
+            )}
+          />
         </View>
       )}
       <Toast />
@@ -243,6 +260,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: Dimensions.get('window').width,
     // width: '100%',
+  },
+
+  containerAdd: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  addButton: {
+    width: '90%',
+    height: 50,
+    backgroundColor: '#EFC81A',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+
+  addButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '700',
+    paddingHorizontal: 15,
   },
 
   content: {
