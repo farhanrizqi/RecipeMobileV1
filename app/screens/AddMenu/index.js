@@ -205,6 +205,7 @@ const AddMenu = () => {
             fontWeight: '700',
             marginTop: 40,
             marginBottom: 30,
+            textAlign: 'center',
           }}>
           Add Your Recipe
         </Text>
@@ -338,7 +339,6 @@ const styles = StyleSheet.create({
   },
 
   addPhoto: {
-    width: 328,
     height: 200,
     borderWidth: 1,
     borderColor: '#8B8A8F',
