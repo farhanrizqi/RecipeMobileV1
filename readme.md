@@ -71,19 +71,33 @@ If you want to run this project locally, we recommend you configure the back-end
   npm install
 ```
 
-- Open and Start your Emulator
+- Check device availability
 
-  See the reference here :
-  [`Run React Native App on Android Studio Emulator`](https://medium.com/@wnyao/run-create-react-native-app-on-android-studios-emulator-ad678a0c362f)
+```
+adb devices
+```
+
+- Port
+
+```
+adb reverse tcp:8081 tcp:8081
+```
+
+-Using SCRCPY
+
+See the documentation for SCRPCPY here: https://github.com/Genymobile/scrcpy
+
+-How to use SCRPCPY
+
+```
+scrcpy
+```
 
 - Start the Android
 
 ```
-  npx react-native start
+  npx react-native run android
 ```
-
-- Type `a` To Start Production on Android
-- Type `r` To Reload Project
 
 ## Instal APK
 
