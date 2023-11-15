@@ -1,4 +1,5 @@
 {
   "name": "reactNative",
-  "displayName": "reactNative"
+  "displayName": "Mama Recipe",
+  "icon": "./app/assets/img/logoMamaRecipe.png"
 }

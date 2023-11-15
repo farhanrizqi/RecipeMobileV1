@@ -32,16 +32,21 @@ const Initial = () => {
           justifyContent: 'space-between',
         }}>
         {/* <Image source={iconStart} style={{width: 65, marginTop: 15}}></Image> */}
-        <View style={{marginBottom: 15, paddingHorizontal: 30}}>
-          <ActionButton title="Let's Started!" onPress={handleStart} />
-          {/* <Text style={{fontSize: 40, color: 'white', fontWeight: 'bold'}}>
-            Find and Add your best Recipes
+        <View
+          style={{
+            justifyContent: 'flex-end',
+            paddingBottom: 30,
+            paddingHorizontal: 30,
+            // backgroundColor: 'blue',
+            height: '100%',
+          }}>
+          <Text style={{fontSize: 40, color: 'white', fontWeight: 'bold'}}>
+            Discover your taste with us!
           </Text>
           <Text style={{color: 'white', fontSize: 15, marginBottom: 5}}>
-            Try various secret recipes from around the world for your cooking
-            today, or you can add your best recipes so the whole world can taste
-            your cooking.
-          </Text> */}
+            Try various recipes and tell the world about your speciality.
+          </Text>
+          <ActionButton title="Let's Started!" onPress={handleStart} />
         </View>
       </LinearGradient>
     </View>

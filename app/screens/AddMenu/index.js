@@ -48,6 +48,7 @@ const AddMenu = () => {
       storageOptions: {
         skipBackup: true,
         path: 'images',
+        mediaType: 'photo',
       },
     };
     await launchCamera(options, res => {
