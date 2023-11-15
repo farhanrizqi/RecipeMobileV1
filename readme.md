@@ -99,17 +99,17 @@ scrcpy
   npx react-native run android
 ```
 
-## Instal APK
+<!-- ## Instal APK
 
 To get the APK, you can download it at the link below. When the APP is first run, please allow permission for your camera access and file manager. And when you first run the APP it will force close several times because there is a slight error in the axios. However, if the APP has been run frequently, it will run normally and there will be no more problems.
 
 Link download APK :
-https://drive.google.com/drive/folders/1c5sSvRFr8IwnhMs3Vm2DmyVXY76Xl5zY?usp=sharing
+https://drive.google.com/drive/folders/1c5sSvRFr8IwnhMs3Vm2DmyVXY76Xl5zY?usp=sharing -->
 
 ## Screenshot
 
-|                                                                                                   Start Screen                                                                                                   |                                                                                            Registration Screen                                                                                             |                                                                                                Login Screen                                                                                                | Initial Screen |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------: |
+|                                                                                                   Start Screen                                                                                                   |                                                                                            Registration Screen                                                                                             |                                                                                                Login Screen                                                                                                |     |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-: |
 | [![intiial.png](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060201/recipe/readme/initial_fwaezv.jpg)](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060201/recipe/readme/initial_fwaezv.jpg) | [![regis.png](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060170/recipe/readme/regis_wx1xla.jpg)](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060170/recipe/readme/regis_wx1xla.jpg) | [![login.png](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060181/recipe/readme/login_ktiuyc.jpg)](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060181/recipe/readme/login_ktiuyc.jpg) |
 
 |                                                                                               Home Screen                                                                                               |                                                                                                 Search Screen                                                                                                 |                                                                                           Add Menu Screen                                                                                            |                                                                                              Update Menu Screen                                                                                               |
@@ -140,7 +140,7 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## Contact
 
-- Email : [`muhammadariffebriansyah@gmail.com`](mailto:farhanrizqi.am@gmail.com)
+- Email : [`farhanrizqi.am@gmail.com`](mailto:farhanrizqi.am@gmail.com)
 
 - LinkedIn : [`/in/frzq/`](https://www.linkedin.com/in/frzq/)
 
