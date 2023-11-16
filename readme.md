@@ -26,7 +26,6 @@
 - [About the Project](#about-the-project)
 - [Built With](#built-with)
 - [Installation](#installation)
-- [APK](#instal-apk)
 - [Contributing](#contributing)
 - [Related Project](#related-project)
 - [Contact](#contact)
@@ -132,9 +131,9 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## Related Project
 
-:rocket: [`Backend Mama Recipe`](https://github.com/farhanrizqi/recipev2)
+- [`Backend Mama Recipe`](https://github.com/farhanrizqi/recipev2)
 
-:rocket: [`Web Mama Recipe`](https://github.com/farhanrizqi/RecipeWEBV3)
+- [`Mama Recipe Web`](https://github.com/farhanrizqi/RecipeWEBV3)
 
 <!-- :rocket: [`Install Mama Recipe Mobile APK`](https://drive.google.com/drive/folders/1Z31nBEuJ2Tj0zEAMYCUsL7hJyQfuGmIy) -->
 
