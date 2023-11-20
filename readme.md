@@ -15,9 +15,9 @@
     <br/>
     <a href="https://github.com/farhanrizqi/RecipeMobileV1">View Demo</a>
     .
-    <a href="https://github.com/farhanrizqi/RecipeMobileV1/issues">Report Bug</a>
+    <a href="mailto:farhanrizqi.am@gmail.com">Report Bug</a>
     .
-    <a href="https://github.com/farhanrizqi/RecipeMobileV1/issues">Request Feature</a>
+    <a href="mailto:farhanrizqi.am@gmail.com">Request Feature</a>
   </p>
 </p>
 
@@ -25,8 +25,8 @@
 
 - [About the Project](#about-the-project)
 - [Built With](#built-with)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Contributing](#contributing)
 - [Related Project](#related-project)
 - [Contact](#contact)
 
@@ -47,6 +47,12 @@ This app was built with some technologies below:
 - React Native
 - Axios
 - Redux
+
+### Prerequisites
+
+Before going to the installation stage there are some software that must be installed first.
+
+- [NodeJs v18.00^](https://nodejs.org/en/download/)
 
 ## Installation
 
@@ -119,7 +125,7 @@ https://drive.google.com/drive/folders/1c5sSvRFr8IwnhMs3Vm2DmyVXY76Xl5zY?usp=sha
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | [![profile.png](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060213/recipe/readme/profile_fzhkwo.jpg)](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060213/recipe/readme/profile_fzhkwo.jpg) | [![myrecipe.png](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060194/recipe/readme/myrecipe_oxciut.jpg)](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060194/recipe/readme/myrecipe_oxciut.jpg) | [![detprofile.png](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060173/recipe/readme/profile2_r5qhml.jpg)](https://res.cloudinary.com/ddrecezrk/image/upload/v1700060173/recipe/readme/profile2_r5qhml.jpg) |
 
-## Contributing
+<!-- ## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -127,7 +133,7 @@ Contributions are what make the open-source community such an amazing place to l
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+5. Open a Pull Request -->
 
 ## Related Project
 
