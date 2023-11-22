@@ -55,7 +55,7 @@ Before going to the installation stage there are some software that must be inst
 
 - [NodeJs v18.00^](https://nodejs.org/en/download/)
 
-## Instal APK
+## APK
 
 To get the APK, you can download it at the link below.
 
