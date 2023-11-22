@@ -26,6 +26,7 @@
 - [About the Project](#about-the-project)
 - [Built With](#built-with)
 - [Prerequisites](#prerequisites)
+- [APK](#apk)
 - [Installation](#installation)
 - [Related Project](#related-project)
 - [Contact](#contact)
@@ -53,6 +54,13 @@ This app was built with some technologies below:
 Before going to the installation stage there are some software that must be installed first.
 
 - [NodeJs v18.00^](https://nodejs.org/en/download/)
+
+## Instal APK
+
+To get the APK, you can download it at the link below.
+
+Link download APK :
+https://bit.ly/mobile-recipe
 
 ## Installation
 
