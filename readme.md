@@ -55,13 +55,6 @@ Before going to the installation stage there are some software that must be inst
 
 - [NodeJs v18.00^](https://nodejs.org/en/download/)
 
-## APK
-
-To get the APK, you can download it at the link below.
-
-Link download APK :
-https://bit.ly/mobile-recipe
-
 ## Installation
 
 If you want to run this project locally, we recommend you configure the back-end first before configuring this repo front-end.
@@ -150,6 +143,13 @@ Contributions are what make the open-source community such an amazing place to l
 - [`Mama Recipe Web`](https://github.com/farhanrizqi/RecipeWEBV3)
 
 <!-- :rocket: [`Install Mama Recipe Mobile APK`](https://drive.google.com/drive/folders/1Z31nBEuJ2Tj0zEAMYCUsL7hJyQfuGmIy) -->
+
+## APK
+
+To get the APK, you can download it at the link below.
+
+Link download APK :
+https://bit.ly/mobile-recipe
 
 ## Contact
 
