@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Input, Text, Icon, Tile} from '@rneui/themed';
 import BeefImage from '../../assets/img/BeefSteak.png';
-import SpaghettiImage from '../../assets/img/Spaghetti.png';
+import SpaghettiImage from '../../assets/img/Spaghetti.jpg';
 import soupImage from '../../assets/img/soup.png';
 import utensilsImage from '../../assets/img/utensils.png';
 import fishImage from '../../assets/img/fish.png';
